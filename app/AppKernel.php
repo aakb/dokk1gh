@@ -38,6 +38,7 @@ class AppKernel extends Kernel
             new FOS\RestBundle\FOSRestBundle(),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new SunCat\MobileDetectBundle\MobileDetectBundle(),
+            new ItkDev\DatabaseBundle\ItkDevDatabaseBundle(),
             new AppBundle\AppBundle(),
             new ApiBundle\ApiBundle(),
         ];

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3ce1af85f34bc38a4c7348a2ca0f241f",
+    "content-hash": "c837ad26cfe33891546a648192ceb229",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1412,6 +1412,43 @@
                 "parameters management"
             ],
             "time": "2015-11-10T17:04:01+00:00"
+        },
+        {
+            "name": "itk-dev/database-bundle",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/itk-dev/database-bundle.git",
+                "reference": "0bed2d801e6e9130c3f3e6eb0245d7391a39ca1e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/itk-dev/database-bundle/zipball/0bed2d801e6e9130c3f3e6eb0245d7391a39ca1e",
+                "reference": "0bed2d801e6e9130c3f3e6eb0245d7391a39ca1e",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/dbal": "^2.5",
+                "symfony/symfony": "^2.8 || ^3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ItkDev\\DatabaseBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mikkel Ricky",
+                    "email": "rimi@aarhus.dk"
+                }
+            ],
+            "description": "A Symfony bundle with useful database stuff",
+            "time": "2018-01-30T18:21:04+00:00"
         },
         {
             "name": "javiereguiluz/easyadmin-bundle",
