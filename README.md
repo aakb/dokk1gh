@@ -174,3 +174,34 @@ Next you can add your styling to the files in scss/* and run:
 
 To watch files and refresh browser after saved changes run:
 `gulp watch`
+
+
+# Coding standards
+
+Check code:
+
+```sh
+composer check-coding-standards
+```
+
+Fix code (if possible):
+
+```sh
+composer fix-coding-standards
+```
+
+Linting Twig (experimental):
+
+```sh
+composer check-coding-standards/twigcs
+```
+
+## Git hooks
+
+Run
+
+```sh
+composer install-git-hooks
+```
+
+to install a Git `pre-commit` hook that check coding standards before a commit.

@@ -92,6 +92,9 @@
         "fix-coding-standards": [
             "@fix-coding-standards/php-cs-fixer",
             "@fix-coding-standards/phpcs"
+        ],
+        "install-git-hooks": [
+            "ln -sf ../../githooks/pre-commit .git/hooks"
         ]
     },
     "config": {
