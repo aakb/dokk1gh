@@ -6,7 +6,7 @@ easy_admin:
         brand_color: '#003764'
         assets:
             css:
-                - 'stylesheets/app.css'
+                - 'stylesheets/easy_admin/easy_admin.css'
 
         menu:
             - entity: Code

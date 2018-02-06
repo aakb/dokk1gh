@@ -11,7 +11,7 @@ var gutil = require('gulp-util');
 
 /* helper functions */
 // handling errors
-var onError = function (err) {  
+var onError = function (err) {
   gutil.log;
   console.log(err);
 };
@@ -25,7 +25,7 @@ gulp.task('clean', function() {
 
 // Compile scss to minifyed css
 gulp.task('scss', function(){
-  gulp.src('scss/*.scss')
+  gulp.src('scss/*/*.scss')
     .pipe(plumber({ // More graceful error handling, prevents watch from breaking.
       errorHandler: onError
     }))
