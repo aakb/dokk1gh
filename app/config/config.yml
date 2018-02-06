@@ -7,6 +7,7 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    version: 1.0.0
 
 framework:
     #esi: ~
@@ -31,7 +32,8 @@ framework:
         # save_path: /var/lib/php/sessions
     fragments: ~
     http_method_override: true
-    assets: ~
+    assets:
+        version: '%version%'
     php_errors:
         log: true
 
