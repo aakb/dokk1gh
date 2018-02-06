@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h1>{{ 'Something has gone wrong!'|trans }}</h1>
+
+    <p>{{ 'Sorry about this. We have been notified and will take action as soon as possible.'|trans }}</p>
+
+    <p>({{ status_code }}: {{ status_text }})</p>
+{% endblock %}

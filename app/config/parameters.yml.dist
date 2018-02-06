@@ -24,6 +24,9 @@ parameters:
     mailer_email: gh@dokk1.gh.vm
     administrator_email: admin@dokk1.gh.vm
 
+    error_mail_sender: error@dokk1gh.vm
+    error_mail_recipient: [error@dokk1gh.vm]
+
     aoes_location: http://dokk1gh.vm/mock/aeosws
     aoes_username: ~
     aoes_password: ~
