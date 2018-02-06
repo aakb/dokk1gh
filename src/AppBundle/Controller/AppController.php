@@ -10,20 +10,21 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Guest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
  * Class AppController.
  *
- * @Route("/app")
+ * @Route("/app/{guest}")
  */
 class AppController extends Controller
 {
     /**
      * @Route("", name="app_code")
      */
-    public function codeAction()
+    public function codeAction(Guest $guest)
     {
         return $this->render('app/code/index.html.twig');
     }

@@ -10,6 +10,7 @@ action:
 
 User: Bruger
 Code: Kode
+Guest: Gæst
 Template: Adgangsområde
 Status: Status
 Note: Intern note
@@ -25,6 +26,9 @@ New code created: Ny kode oprettet
 Copy code: Kopier kode
 Code copied to clipboard: Kode kopieret til udklipsholder
 Code removed: Kode slettet
+
+Company: Firma
+Phone: Telefonnr.
 
 Enabled: Aktiv
 

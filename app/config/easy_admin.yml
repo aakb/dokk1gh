@@ -11,6 +11,8 @@ easy_admin:
         menu:
             - entity: Code
               icon: id-card
+            - entity: Guest
+              icon: id-card
             - entity: User
               icon: user
               roles: [ROLE_ADMIN]
@@ -71,6 +73,41 @@ easy_admin:
                     - property: template
                     - property: note
                       help: code.note.help
+
+        Guest:
+            roles: [ROLE_ADMIN]
+            class: AppBundle\Entity\Guest
+            # disabled_actions: [show, delete]
+            list:
+                fields:
+                    - property: name
+                    - property: company
+                    - property: phone
+                    - property: email
+                    - property: templates
+                      template: templates.html.twig
+                    - property: startTime
+                    - property: endTime
+
+            form:
+                fields:
+                    - property: name
+                    - property: company
+                    - property: phone
+                    - property: email
+                      type: email
+                    - property: templates
+                      type_options:
+                          expanded: true
+                          required: true
+                    - property: startTime
+                      label: Start date
+                      type: date
+                    - property: endTime
+                      label: End date
+                      type: date
+                    - property: timeRanges
+                      type: AppBundle\Form\TimeRangesType
 
         User:
             controller: AppBundle\Controller\UserController
