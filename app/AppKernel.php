@@ -39,6 +39,7 @@ class AppKernel extends Kernel
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new SunCat\MobileDetectBundle\MobileDetectBundle(),
             new ItkDev\DatabaseBundle\ItkDevDatabaseBundle(),
+            new ItkDev\MonologDbBundle\ItkDevMonologDbBundle(),
             new AppBundle\AppBundle(),
             new ApiBundle\ApiBundle(),
         ];

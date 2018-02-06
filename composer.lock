@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "597f6e0b9f8f57b2eadf80217d7bc597",
+    "content-hash": "9eafaa49517f4f9bd8fff1d092d4bd23",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1449,6 +1449,50 @@
             ],
             "description": "A Symfony bundle with useful database stuff",
             "time": "2018-01-30T18:21:04+00:00"
+        },
+        {
+            "name": "itk-dev/monolog-db-bundle",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/itk-dev/monolog-db-bundle.git",
+                "reference": "fa293fe3dc8c908f22cd24fac3c0b2a9c925e3ad"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/itk-dev/monolog-db-bundle/zipball/fa293fe3dc8c908f22cd24fac3c0b2a9c925e3ad",
+                "reference": "fa293fe3dc8c908f22cd24fac3c0b2a9c925e3ad",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/orm": "^2.5",
+                "php": ">=7.0.0",
+                "symfony/monolog-bundle": "^3.1.0",
+                "symfony/symfony": "^3.3"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.10",
+                "phpunit/phpunit": "^6.5",
+                "squizlabs/php_codesniffer": "^3.2"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "ItkDev\\MonologDbBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mikkel Ricky",
+                    "email": "rimi@aarhus.dk"
+                }
+            ],
+            "description": "Monolog handler for logging to a database table",
+            "time": "2018-02-06T11:46:10+00:00"
         },
         {
             "name": "javiereguiluz/easyadmin-bundle",

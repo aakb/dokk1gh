@@ -146,3 +146,11 @@ stof_doctrine_extensions:
             timestampable: true
             blameable: true
             softdeleteable: true
+
+monolog:
+    channels: ['db']
+    handlers:
+        db:
+            channels: ['db']
+            type: service
+            id: itk_dev.monolog.db_handler
