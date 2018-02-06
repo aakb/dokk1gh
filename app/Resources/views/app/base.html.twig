@@ -4,20 +4,24 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="/stylesheets/app/app.css">
+        <link rel="stylesheet" href="/static/css/fa-svg-with-js.css">
 
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script defer src="/javascripts/min/fa-solid.min.js"></script>
+        <script defer src="/javascripts/min/fontawesome.min.js"></script>
 
-        <title>Hello, world!</title>
+        <title>Code2Dokk1</title>
     </head>
     <body>
         {% block content %}{% endblock %}
 
-        <ol class="list-inline">
-            <li><a href="{{ path('app_code') }}">{{ 'Code'|trans }}</a></li>
-            <li><a href="{{ path('app_card') }}">{{ 'Card'|trans }}</a></li>
-            <li><a href="{{ path('app_about') }}">{{ 'About'|trans }}</a></li>
-        </ol>
+        <nav class="navbar navbar-expand navbar-light bg-light fixed-bottom">
+            <div class="nav navbar-nav">
+                <a class="nav-item nav-link {{ app.request.attributes.get('_route') == 'app_code' ? 'active' }}" href="{{ path('app_code') }}"><i class="fas fa-lock-open fa-fw"></i><span>{{ 'Code'|trans }}</span></a>
+                <a class="nav-item nav-link {{ app.request.attributes.get('_route') == 'app_card' ? 'active' }}" href="{{ path('app_card') }}"><i class="fas fa-id-card fa-fw"></i><span>{{ 'Card'|trans }}</span></a>
+                <a class="nav-item nav-link {{ app.request.attributes.get('_route') == 'app_about' ? 'active' }}" href="{{ path('app_about') }}"><i class="fas fa-info-circle fa-fw"></i><span>{{ 'About'|trans }}</span></a>
+            </div>
+        </nav>
 
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
