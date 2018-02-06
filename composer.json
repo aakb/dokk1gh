@@ -77,7 +77,7 @@
             "vendor/bin/phpcs --standard=phpcs.xml.dist"
         ],
         "check-coding-standards/twigcs": [
-            "vendor/bin/twigcs lint app/Resources/views/"
+            "vendor/bin/twigcs lint app/Resources/views"
         ],
         "check-coding-standards": [
             "@check-coding-standards/php-cs-fixer",
