@@ -43,6 +43,7 @@
         "twig/twig": "^1.0||^2.0"
     },
     "require-dev": {
+        "allocine/twigcs": "^3.0",
         "behat/mink-browserkit-driver": "^1.3",
         "behat/mink-extension": "^2.2",
         "behat/symfony2-extension": "^2.1",
@@ -68,13 +69,29 @@
         "post-update-cmd": [
             "@symfony-scripts"
         ],
-        "check-coding-standards": [
-            "php -n vendor/bin/php-cs-fixer --config=.php_cs.dist fix --dry-run",
+        "check-coding-standards/php-cs-fixer": [
+            "php -n vendor/bin/php-cs-fixer --config=.php_cs.dist fix --dry-run"
+        ],
+        "check-coding-standards/phpcs": [
             "vendor/bin/phpcs --standard=phpcs.xml.dist"
         ],
-        "fix-coding-standards": [
-            "php -n vendor/bin/php-cs-fixer --config=.php_cs.dist fix",
+        "check-coding-standards/twigcs": [
+            "vendor/bin/twigcs lint app/Resources/views/"
+        ],
+        "check-coding-standards": [
+            "@check-coding-standards/php-cs-fixer",
+            "@check-coding-standards/phpcs",
+            "@check-coding-standards/twigcs"
+        ],
+        "fix-coding-standards/php-cs-fixer": [
+            "php -n vendor/bin/php-cs-fixer --config=.php_cs.dist fix"
+        ],
+        "fix-coding-standards/phpcs": [
             "vendor/bin/phpcbf --standard=phpcs.xml.dist"
+        ],
+        "fix-coding-standards": [
+            "@fix-coding-standards/php-cs-fixer",
+            "@fix-coding-standards/phpcs"
         ]
     },
     "config": {

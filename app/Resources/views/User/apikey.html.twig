@@ -1,5 +1,6 @@
 {% extends 'easy_admin/layout.html.twig' %}
 
+{# Variable `wrapper_classes` is used by parent template #}
 {% set wrapper_classes = ['no-menu', 'user-page'] %}
 
 {% block main %}
@@ -7,7 +8,7 @@
     <div class="row">
       <div class="panel">
         <div class="panel-heading">
-          <h1>{{ 'Api key' | trans }}</h1>
+          <h1>{{ 'Api key'|trans }}</h1>
         </div>
 
         <div class="panel-body">
@@ -18,13 +19,13 @@
                 <div class="input-group">
                   <input class="form-control" type="text" data-readonly value="{{ user.apiKey }}"/>
                   <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" data-clipboard-text="{{ user.apiKey }}" data-content="{{ 'Api key copied to clipboard' | trans }}"><span class="fa fa-clipboard"></span></button>
+                    <button type="button" class="btn btn-default" data-clipboard-text="{{ user.apiKey }}" data-content="{{ 'Api key copied to clipboard'|trans }}"><span class="fa fa-clipboard"></span></button>
                   </span>
                 </div>
               </div>
 
               <div class="form-group">
-                {% set label = 'Generate new api key' | trans %}
+                {% set label = 'Generate new api key'|trans %}
 
                 <div class="form-group">
                   <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#confirm-modal">{{ label }}</button>
@@ -38,10 +39,10 @@
                         <h4 class="modal-title" id="confirm-modal-label">{{ label }}</h4>
                       </div>
                       <div class="modal-body">
-                        <p>{{ 'Confirm generate new api key' | trans }}</p>
+                        <p>{{ 'Confirm generate new api key'|trans }}</p>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Cancel' | trans }}</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Cancel'|trans }}</button>
                         <button type="submit" class="btn btn-primary">{{ label }}</button>
                       </div>
                     </div>
@@ -51,7 +52,7 @@
               </div>
             {% else %}
               <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block">{{ 'Generate api key' | trans }}</button>
+                <button type="submit" class="btn btn-primary btn-block">{{ 'Generate api key'|trans }}</button>
               </div>
             {% endif %}
           </form>

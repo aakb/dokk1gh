@@ -1,4 +1,4 @@
-<div style="display: none">{{ markup | raw }}</div>
+<div style="display: none">{{ markup|raw }}</div>
 
 {% set config = configuration.get('code.config') %}
 
@@ -6,7 +6,7 @@
   {% if name == 'startTime' %}
 
     <div class="date-time-range-date">
-      <input id="{{ id }}-picker" class="form-control" type="text" value="{{ value | date(form_format_date) }}"/>
+      <input id="{{ id }}-picker" class="form-control" type="text" value="{{ value|date(form_format_date) }}"/>
     </div>
 
     <script>
@@ -14,14 +14,14 @@
      (typeof gh.code !== 'undefined') || (gh.code = {});
 
      gh.code.updateTimes = function(initialize) {
-       var date = $('#' + {{ id | json_encode | raw }} + '-picker').datepicker('getUTCDate');
-       var timeStart = $('#' + {{ id | replace({'startTime': 'endTime'}) | json_encode | raw }} + '-time-start');
-       var timeEnd = $('#' + {{ id | replace({'startTime': 'endTime'}) | json_encode | raw }} + '-time-end');
+       var date = $('#' + {{ id|json_encode|raw }} + '-picker').datepicker('getUTCDate');
+       var timeStart = $('#' + {{ id|replace({'startTime': 'endTime'})|json_encode|raw }} + '-time-start');
+       var timeEnd = $('#' + {{ id|replace({'startTime': 'endTime'})|json_encode|raw }} + '-time-end');
 
        if (initialize === true) {
          // Get time start and end from entity.
-         var startTime = moment($('#' + {{ id | json_encode | raw }}).val());
-         var endTime = moment($('#' + {{ id | replace({'startTime': 'endTime'}) | json_encode | raw }}).val());
+         var startTime = moment($('#' + {{ id|json_encode|raw }}).val());
+         var endTime = moment($('#' + {{ id|replace({'startTime': 'endTime'})|json_encode|raw }}).val());
          timeStart.val(startTime.format('HH:mm'));
          timeEnd.val(endTime.format('HH:mm'));
        }
@@ -38,15 +38,15 @@
        endTime.minute(parseInt(tokens[1]));
        endTime.second(0);
 
-       $('#' + {{ id | json_encode | raw }}).val(startTime.format());
-       $('#' + {{ id | replace({'startTime': 'endTime'}) | json_encode | raw }}).val(endTime.format());
+       $('#' + {{ id|json_encode|raw }}).val(startTime.format());
+       $('#' + {{ id|replace({'startTime': 'endTime'})|json_encode|raw }}).val(endTime.format());
      };
      (function ($) { $(function() {
-       gh.code.datePicker = $('#' + {{ id | json_encode | raw }} + '-picker').datepicker({
-         language: {{ locale | json_encode | raw }},
-         format: {{ form_format_date_js | json_encode | raw }},
+       gh.code.datePicker = $('#' + {{ id|json_encode|raw }} + '-picker').datepicker({
+         language: {{ locale|json_encode|raw }},
+         format: {{ form_format_date_js|json_encode|raw }},
          startDate: 'now',
-         daysOfWeekDisabled: {{ config.daysDisabled | json_encode | raw }},
+         daysOfWeekDisabled: {{ config.daysDisabled|json_encode|raw }},
          autoclose: true
        }).on('changeDate', gh.code.updateTimes);
        gh.code.updateTimes(true);
@@ -60,7 +60,7 @@
           {% for minute in config.minutes %}
             {# Skip last minute value in last hour. @TODO: Improve this, i.e. make it more obvious #}
             {% if not loop.last or not loop.parent.loop.last %}
-              <option>{{ '%02d:%02d' | format(hour, minute)}}</option>
+              <option>{{ '%02d:%02d'|format(hour, minute) }}</option>
             {% endif %}
           {% endfor %}
         {% endfor %}
@@ -80,8 +80,8 @@
     <script>
      (function ($) {
        $([
-         '#' + {{ id | json_encode | raw }} + '-time-start',
-         '#' + {{ id | json_encode | raw }} + '-time-end'
+         '#' + {{ id|json_encode|raw }} + '-time-start',
+         '#' + {{ id|json_encode|raw }} + '-time-end'
        ].join()).on('change', gh.code.updateTimes);
      }(jQuery))</script>
 

@@ -1,6 +1,7 @@
 <span class="code-code">
-  {% set code = item %}
-  {% include 'easy_admin/Code/_clipboard_copy_code.html.twig' %}
-  {% include 'easy_admin/Code/_generate_email.html.twig' %}
-  {% include 'easy_admin/Code/_generate_sms.html.twig' %}
+    {# Variable `code` is used by included templates. #}
+    {% set code = item %}
+    {% include 'easy_admin/Code/_clipboard_copy_code.html.twig' %}
+    {% include 'easy_admin/Code/_generate_email.html.twig' %}
+    {% include 'easy_admin/Code/_generate_sms.html.twig' %}
 </span>

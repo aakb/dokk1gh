@@ -1,8 +1,8 @@
-{% set startTime = item.startTime %}
-{% set endTime = item.endTime %}
+{% set start_time = item.startTime %}
+{% set end_time = item.endTime %}
 
-{% if (startTime | date('Y-m-d')) == (endTime | date('Y-m-d')) %}
-  {{ startTime | date(format_date, view_timezone) }} {{ startTime | date(format_time, view_timezone) }}–{{ endTime | date(format_time, view_timezone) }}
+{% if (start_time|date('Y-m-d')) == (end_time|date('Y-m-d')) %}
+  {{ start_time|date(format_date, view_timezone) }} {{ start_time|date(format_time, view_timezone) }}–{{ end_time|date(format_time, view_timezone) }}
 {% else %}
-  {{ startTime | date(format_datetime, view_timezone) }}–{{ endTime | date(format_datetime, view_timezone) }}
+  {{ start_time|date(format_datetime, view_timezone) }}–{{ end_time|date(format_datetime, view_timezone) }}
 {% endif %}

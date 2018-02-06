@@ -1,13 +1,13 @@
 {% extends ':Emails:layout.html.twig' %}
 
-{% block email_title %}{{ header | raw }}{% endblock %}
+{% block email_title %}{{ header|raw }}{% endblock %}
 
 {% block header %}
-  {{ header | raw }}
+  {{ header|raw }}
 {% endblock %}
 
 {% block body %}
-  {{ body | raw }}
+  {{ body|raw }}
 {% endblock %}
 
 {% set button = {
@@ -16,5 +16,5 @@
 } %}
 
 {% block footer %}
-  {{ footer | raw }}
+  {{ footer|raw }}
 {% endblock %}

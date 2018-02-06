@@ -3,6 +3,6 @@
 {% block ___entity_form %}
   {{ parent() }}
   <form action="{{ path('user_notify', {id: entity.id}) }}" method="post">
-    <button type="submit" class="btn btn-default">{{ 'Notify user' | trans }}</button>
+    <button type="submit" class="btn btn-default">{{ 'Notify user'|trans }}</button>
   </form>
 {% endblock ___entity_form %}

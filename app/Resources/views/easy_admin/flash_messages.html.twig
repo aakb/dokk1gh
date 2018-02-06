@@ -4,7 +4,7 @@
         {% for label, messages in app.session.flashbag.all %}
             {% for message in messages %}
                 <div class="alert alert-{{ label }}">
-                    {{ message | raw }}
+                    {{ message|raw }}
                 </div>
             {% endfor %}
         {% endfor %}

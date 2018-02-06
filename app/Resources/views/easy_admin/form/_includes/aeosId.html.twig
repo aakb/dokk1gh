@@ -1,9 +1,9 @@
-<div style="display: none">{{ markup | raw }}</div>
+<div style="display: none">{{ markup|raw }}</div>
 
 <div class="find-aeos-data">
   <select id="aeos-data-select"></select>
   {% if messages.help|default(false) %}
-    <p class="help-block"><i class="fa fa-info-circle"></i> {{ messages.help | trans }}</p>
+    <p class="help-block"><i class="fa fa-info-circle"></i> {{ messages.help|trans }}</p>
   {% endif %}
 
   <script>(function ($) { $(function() {
@@ -17,18 +17,17 @@
              return result.text;
            }
 
-           var value = render({{ item_template | json_encode | raw }}, result);
+           var value = render({{ item_template|json_encode|raw }}, result);
            if (result._usedBy) {
-             value += ' ' + render('(' + {{ 'AEOS id used by %name%' | trans({'%name%': '%_usedBy%'}) | json_encode | raw }} + ')', result);
+             value += ' ' + render('(' + {{ 'AEOS id used by %name%'|trans({'%name%': '%_usedBy%'})|json_encode|raw }} + ')', result);
            }
 
            return value;
          };
      $('#aeos-data-select').select2({
-       placeholder: {{ (data ? data : {'id': 0, 'text': (messages.invalid_id | trans({'%id%': value}))})
-                    | json_encode | raw }},
+       placeholder: {{ (data ? data : {'id': 0, 'text': (messages.invalid_id|trans({'%id%': value}))})|json_encode|raw }},
        ajax: {
-         url: {{ path(search_path) | json_encode | raw }},
+         url: {{ path(search_path)|json_encode|raw }},
          dataType: 'json',
          delay: 250,
          data: function (params) {
@@ -52,7 +51,7 @@
        templateResult: renderResult,
        templateSelection: renderResult
      }).on('select2:select', function (event) {
-       $('#' + {{ id | json_encode | raw }}).val(event.params.data.Id);
+       $('#' + {{ id|json_encode|raw }}).val(event.params.data.Id);
      });
    }) }(jQuery))</script>
 </div>

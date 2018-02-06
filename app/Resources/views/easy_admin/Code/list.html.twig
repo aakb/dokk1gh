@@ -5,12 +5,12 @@
 {% block content_header %}
   {% if not user_has_aeos_id %}
     <div class="alert alert-danger">
-      {{ 'You cannot create codes.' | trans }}
+      {{ 'You cannot create codes.'|trans }}
       {% if administrator_email|default(false) %}
         {% set subject = include(template_from_string(get_app_parameter('user.cannot_create_codes.subject'))) %}
         {% set body = include(template_from_string(get_app_parameter('user.cannot_create_codes.body'))) %}
-        {% set url = 'mailto:' ~ administrator_email ~ '?' ~ ({subject: subject, body: body} | url_encode) %}
-        <a href="{{ url }}">{{ 'Please contact an administrator (%administrator_email%) for help.' | trans({'%administrator_email%': administrator_email}) }}</a>
+        {% set url = 'mailto:' ~ administrator_email ~ '?' ~ ({subject: subject, body: body}|url_encode) %}
+        <a href="{{ url }}">{{ 'Please contact an administrator (%administrator_email%) for help.'|trans({'%administrator_email%': administrator_email}) }}</a>
 
         <a class="btn btn-link btn-xs" href="{{ url }}"><span class="fa fa-envelope"></span></a>
       {% endif %}
