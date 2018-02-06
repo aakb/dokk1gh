@@ -42,6 +42,7 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     globals:
+        app_name: '%app_name%'
         site_name: '%site_name%'
         site_url: '%site_url%'
         locale: '%locale%'
