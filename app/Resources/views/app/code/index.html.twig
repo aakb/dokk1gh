@@ -1,5 +1,39 @@
 {% extends 'app/base.html.twig' %}
 
+{#
+ # @param guest: The Guest object.
+ # @param guest_is_valid: Guest access start before now and ends after now.
+ # @param guest_can_request_code: Guest can request access at this time on this day.
+ #}
 {% block content %}
+    {% set route_params = app.request.attributes.get('_route_params')|default({}) %}
+
     <h1>{{ 'Code'|trans }}</h1>
+
+    {% if guest_is_valid %}
+        {% for template in guest.templates %}
+            <div class="card">
+                <h2>{{ template.name }}</h2>
+
+                {% for type in ['danger', 'warning', 'success', 'info'] %}
+                    {% for message in app.flashes('gh_message_' ~ type ~ '_' ~ template.id)|default([]) %}
+                        <div class="alert alert-{{ type }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+
+                {% if guest_can_request_code %}
+                    <form method="post" action="{{ path('app_code_request', route_params|merge({template: template.id})) }}">
+                        <button type="submit" class="btn btn-primary">{{ 'Request access'|trans }}</button>
+                    </form>
+                {% else %}
+                    <div class="alert alert-warning">{{ 'You are not allowed to request access right now'|trans }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-warning">{{ 'Your guest access is not valid'|trans }}</div>
+    {% endif %}
+
 {% endblock %}
