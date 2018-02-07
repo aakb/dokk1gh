@@ -8,24 +8,24 @@
  * This source file is subject to the MIT license.
  */
 
-namespace AppBundle\Mock\Controller;
+namespace MockBundle\Controller;
 
-use AppBundle\Mock\Service\AeosWebService;
+use MockBundle\Service\AeosWebService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @Route("/mock/")
+ * @Route("/aeosws")
  */
 class AeosWebServiceController extends Controller
 {
     /**
-     * @Route("aeosws")
+     * @Route()
      */
-    public function aeoswsAction(AeosWebService $aeosWebService)
+    public function indexAction(AeosWebService $aeosWebService)
     {
-        $server = new \SoapServer(__DIR__.'/wsdl/aeosws.wsdl');
+        $server = new \SoapServer(__DIR__.'/../Resources/aeosws/wsdl/aeosws.wsdl');
         $server->setObject($aeosWebService);
 
         $response = new Response();
