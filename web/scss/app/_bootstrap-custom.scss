@@ -1,12 +1,26 @@
+// Override default colors
 $blue:      #235587;
 $dark-blue: #003764;
 $orange:    #D2411E;
 $yellow:    #FFB400;
-
 $gray-200:  #ECECEC;
+$gray-600:  #88898C;
 
+// Override primary color
+$primary: $dark-blue;
+
+// Override default font
 $font-family-sans-serif: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" ;
 
+$lead-font-size: 1.2rem;
+$lead-font-weight: 400;
+
+// Override card defaults
+$card-border-radius: 0;
+$card-border-color: none;
+$card-inner-border-radius: 0;
+
+// Import bootstrap scss
 @import "../../node_modules/bootstrap/scss/_functions.scss";
 @import "../../node_modules/bootstrap/scss/_variables.scss";
 @import "../../node_modules/bootstrap/scss/_mixins.scss";
@@ -16,7 +30,7 @@ $font-family-sans-serif: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe
 @import "../../node_modules/bootstrap/scss/_images.scss";
 // @import "../../node_modules/bootstrap/scss/_code.scss";
 @import "../../node_modules/bootstrap/scss/_grid.scss";
-// @import "../../node_modules/bootstrap/scss/_tables.scss";
+@import "../../node_modules/bootstrap/scss/_tables.scss";
 // @import "../../node_modules/bootstrap/scss/_forms.scss";
 @import "../../node_modules/bootstrap/scss/_buttons.scss";
 @import "../../node_modules/bootstrap/scss/_transitions.scss";

@@ -6,7 +6,12 @@
 
 // Import partials
 @import '_navbar';
+@import '_header';
+@import '_card';
+@import '_alert';
+@import '_guest-info';
 
 body {
     background: $gray-200;
+    margin-bottom: 68px; // To account for navbar fixed to bottom of page.
 }
