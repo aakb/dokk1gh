@@ -22,5 +22,6 @@ app.swagger_ui:
     prefix:   /api/doc
 
 app_mock:
-    resource: '@AppBundle/Mock/Controller/'
+    resource: '@MockBundle/Controller/'
     type: annotation
+    prefix: /mock

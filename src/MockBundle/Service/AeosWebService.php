@@ -8,7 +8,7 @@
  * This source file is subject to the MIT license.
  */
 
-namespace AppBundle\Mock\Service;
+namespace MockBundle\Service;
 
 use Symfony\Component\Yaml\Yaml;
 
@@ -162,7 +162,7 @@ class AeosWebService
 
     private function loadFixture($name, $params)
     {
-        $fixturePath = __DIR__.'/fixtures/'.$name.'.yml';
+        $fixturePath = __DIR__.'/../Resources/aeosws/fixtures/'.$name.'.yml';
         if (!file_exists($fixturePath)) {
             throw new \Exception('Fixture "'.$fixturePath.'" not found.');
         }
