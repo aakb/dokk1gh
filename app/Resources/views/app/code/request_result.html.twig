@@ -18,8 +18,6 @@
         {% endfor %}
     {% endfor %}
 
-{{ dump() }}
-
     {% if status['sms_sent']|default(false) %}
         <div class="alert alert-info">
             {{ 'Sms sent to %guest_phone%'|trans({'%guest_phone%': guest.phone}) }}
