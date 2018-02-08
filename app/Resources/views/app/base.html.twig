@@ -13,7 +13,14 @@
         <title>{{ app_name }}</title>
     </head>
     <body>
-        {% block content %}{% endblock %}
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+
 
         {% set route = app.request.attributes.get('_route')|default(null) %}
         {% set route_params = app.request.attributes.get('_route_params')|default({}) %}
