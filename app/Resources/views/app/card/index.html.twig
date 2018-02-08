@@ -8,9 +8,55 @@
 
 {% block content %}
     {% from _self import week_day_name %}
-    <h1>{{ 'Card'|trans }}</h1>
 
-    <dl>
+    <div class="header">
+        <h1>{{ 'ID-card'|trans }}</h1>
+        <p class="lead">{{ 'This is your personal identification wich grants you access to Dokk1'|trans }}</p>
+    </div>
+    <div class="row id-card">
+        <div class="col-sm-4 offset-sm-4 mb-3 image">
+            <img src="/images/dokk1-guest-card.jpg" class="img-fluid" alt="Guest ID-card">
+        </div>
+        <div class="col-sm-4 offset-sm-4 guest-info">
+            <h3>{{ guest.name }}</h3>
+            {% if guest.company %}
+                <p class="lead">{{ guest.company }}</p>
+            {% endif %}
+            <p><span class="text-muted">{{ 'Phone'|trans }}:</span> {{ guest.phone }}</p>
+            {% if guest.email %}
+                <p><span class="text-muted">{{ 'Email'|trans }}:</span> {{ guest.email }}</p>
+            {% endif %}
+            <p><span class="text-muted">{{ 'Valid from'|trans }}:</span> {{ guest.startTime|date(format_date) }} {{ 'to'|trans }} {{ guest.endTime|date(format_date) }}</p>
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                    <tr><th colspan="2">{{ 'Access times'|trans }}</th></tr>
+                </thead>
+                <tbody>
+                {% for i in 1..7 %}
+                    <tr>
+                        {% set start_time = guest.timeRanges['start_time_' ~ i]|default(null) %}
+                        {% set end_time = guest.timeRanges['end_time_' ~ i]|default(null) %}
+                        <th scope="row">
+                            {{ week_day_name(i) }}
+                        </th>
+                        <td>
+                            {% if start_time and end_time %}
+                                {{ start_time }}–{{ end_time }}
+                            {% else %}
+                                —
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
+    {# <dl>
         <dt>{{ 'Name'|trans }}</dt>
         <dd>{{ guest.name }}</dd>
 
@@ -35,7 +81,7 @@
 
         <dt>{{ 'Access times'|trans }}</dt>
         <dd>
-            <table>
+            <table class="table table-bordered">
             {% for i in 1..7 %}
                 <tr>
                     {% set start_time = guest.timeRanges['start_time_' ~ i]|default(null) %}
@@ -54,5 +100,5 @@
             {% endfor %}
             </table>
         </dd>
-    </dl>
+    </dl> #}
 {% endblock %}

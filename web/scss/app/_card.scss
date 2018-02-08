@@ -1,0 +1,8 @@
+.card {
+    &-footer {
+        .guest-area & {
+            padding: 0;
+            background: $dark-blue;
+        }
+    }
+}
