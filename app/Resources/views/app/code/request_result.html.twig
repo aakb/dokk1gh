@@ -1,0 +1,45 @@
+{% extends 'app/base.html.twig' %}
+
+{#
+ # @param guest: The Guest object.
+ # @param template: The Template object.
+ # @param code: The generated Code object. May be null. DO NOT expose code.identifier in the template!
+ # @param messages: Messages.
+ # @param status: Status.
+ #}
+{% block content %}
+    <h1>{{ 'Result'|trans }}</h1>
+
+    {% for type, messages in messages|default([]) %}
+        {% for message in messages %}
+            <div class="alert alert-{{ type }}">
+                {{ message|trans }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+{{ dump() }}
+
+    {% if status['sms_sent']|default(false) %}
+        <div class="alert alert-info">
+            {{ 'Sms sent to %guest_phone%'|trans({'%guest_phone%': guest.phone}) }}
+        </div>
+    {% endif %}
+
+    {% if code|default(null) %}
+        <div class="card">
+            <dl>
+                <dt>{{ 'Code gives access to'|trans }}</dt>
+                <dd>{{ code.template.name }}</dd>
+
+                <dt>{{ 'Code expires at'|trans }}</dt>
+                <dd>{{ code.endTime|date(format_datetime) }}</dd>
+            </dl>
+        </div>
+    {% endif %}
+
+    <div>
+        <a class="btn btn-primary" href="{{ path('app_code', {'guest': guest.id}) }}">{{ 'Go back'|trans }}</a>
+    </div>
+
+{% endblock %}

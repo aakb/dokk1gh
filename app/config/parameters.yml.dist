@@ -142,3 +142,9 @@ parameters:
     user.cannot_create_codes.subject: Bruger {{ app.user.email }} kan ikke oprette koder på {{ site_name }}
     user.cannot_create_codes.body: |-
         Bruger {{ app.user.email }} kan ikke oprette koder på {{ site_name }} ({{ site_url }}).
+
+    guest_code_duration: '+10 minutes'
+    guest_code_name_template: |-
+        {{ 'now' | date(format_datetime) }}: {{ guest.name }}; {{ guest.company }}; {{ guest.phone }}; {{ guest.email }}
+
+    guest_code_sms_template: '%code_generate_sms.body%'

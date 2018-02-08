@@ -81,6 +81,16 @@ services:
                             text: '%user_created_user_button_text%'
                         footer: '%user_created_user_footer%'
 
+    AppBundle\Service\GuestService:
+        arguments:
+            - '@AppBundle\Service\AeosHelper'
+            - '@doctrine.orm.entity_manager'
+            - '@twig'
+            -
+                guest_code:
+                    duration: '%guest_code_duration%'
+                    name_template: '%guest_code_name_template%'
+
     # Inject our custom config manager (overwrite the original one)
     easyadmin.config.manager:
         class: AppBundle\Configuration\EasyAdminConfigManager

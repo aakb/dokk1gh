@@ -45,7 +45,7 @@ class AeosHelper
         $this->configuration = $configuration;
     }
 
-    public function createAeosIdentifier(Code $code)
+    public function createAeosIdentifier(Code $code, $visitorName = null)
     {
         $user = $code->getCreatedBy() ?? $this->tokenStorage->getToken()->getUser();
         if (!$user) {
@@ -69,11 +69,13 @@ class AeosHelper
             throw new \Exception('Cannot find AEOS template: '.$template->getAeosId());
         }
 
-        $visitorName = $this->twig
-            ->createTemplate($this->configuration['vistor_name_template'])
-            ->render([
-                         'code' => $code,
-                     ]);
+        if (null === $visitorName) {
+            $visitorName = $this->twig
+                ->createTemplate($this->configuration['vistor_name_template'])
+                ->render([
+                             'code' => $code,
+                         ]);
+        }
         $visitorName = trim($visitorName);
 
         $visitor = $this->aeosService->createVisitor([

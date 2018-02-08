@@ -10,13 +10,15 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Code;
 use AppBundle\Entity\Guest;
 use AppBundle\Entity\Template;
+use AppBundle\Exception\AbstractException;
 use AppBundle\Service\GuestService;
+use AppBundle\Service\SmsHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Class AppController.
@@ -25,12 +27,17 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  */
 class AppController extends Controller
 {
+    const GENERATED_CODE_SESSION_KEY = 'generated_code';
     /** @var GuestService */
     private $guestService;
 
-    public function __construct(GuestService $guestService)
+    /** @var SmsHelper */
+    private $smsHelper;
+
+    public function __construct(GuestService $guestService, SmsHelper $smsHelper)
     {
         $this->guestService = $guestService;
+        $this->smsHelper = $smsHelper;
     }
 
     /**
@@ -55,25 +62,42 @@ class AppController extends Controller
      */
     public function codeRequestAction(Guest $guest, Template $template)
     {
-        if (!$guest->getTemplates()->contains($template)) {
-            throw new HttpException(400, 'Invalid template');
-        }
-
         $code = null;
-        $codeExpiresAt = new \DateTime('+10 minutes');
-        $succes = 1 === $template->getId();
-        $errorMessage = null;
+        $messages = null;
+        $status = [];
 
-        if ($succes) {
-            $this->addFlash('gh_message_success_'.$template->getId(), __METHOD__);
-            $this->addFlash('gh_message_info_'.$template->getId(), __METHOD__);
-        } else {
-            $this->addFlash('gh_message_danger_'.$template->getId(), __METHOD__);
-            $this->addFlash('gh_message_warning_'.$template->getId(), __METHOD__);
+        try {
+            $code = $this->guestService->generateCode($guest, $template);
+            if (null !== $code) {
+                $status['code_generated'] = true;
+                $this->smsHelper->sendCode($guest, $code);
+                $status['sms_sent'] = true;
+            }
+        } catch (AbstractException $exception) {
+            $messages['danger'][] = $exception->getMessage();
         }
+        $this->setGeneratedCodeData([$code, $status, $messages]);
 
-        return $this->redirectToRoute('app_code', [
+        return $this->redirectToRoute('app_code_request_result', [
             'guest' => $guest->getId(),
+            'template' => $template->getId(),
+        ]);
+    }
+
+    /**
+     * @Route("/request/{template}", name="app_code_request_result")
+     * @Method("GET")
+     */
+    public function codeRequestResultAction(Guest $guest, Template $template)
+    {
+        list($code, $status, $messages) = $this->getGeneratedCodeData();
+
+        return $this->render('app/code/request_result.html.twig', [
+            'guest' => $guest,
+            'template' => $template,
+            'code' => $code,
+            'messages' => $messages,
+            'status' => $status,
         ]);
     }
 
@@ -93,5 +117,25 @@ class AppController extends Controller
     public function aboutAction()
     {
         return $this->render('app/about/index.html.twig');
+    }
+
+    private function setGeneratedCodeData($data)
+    {
+        $session = $this->container->get('session');
+        $session->set(self::GENERATED_CODE_SESSION_KEY, $data);
+    }
+
+    private function getGeneratedCodeData($peek = false)
+    {
+        $session = $this->container->get('session');
+        $data = null;
+        if ($session->has(self::GENERATED_CODE_SESSION_KEY)) {
+            $data = $session->get(self::GENERATED_CODE_SESSION_KEY);
+            if (!$peek) {
+//            $session->remove(self::GENERATED_CODE_SESSION_KEY);
+            }
+        }
+
+        return $data;
     }
 }

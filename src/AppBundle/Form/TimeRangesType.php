@@ -21,6 +21,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TimeRangesType extends AbstractType
 {
+    private static $weekDayNames = [
+        1 => 'Monday',
+        2 => 'Tuesday',
+        3 => 'Wednesday',
+        4 => 'Thursday',
+        5 => 'Friday',
+        6 => 'Saturday',
+        7 => 'Sunday',
+    ];
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         // A pseudo field used only for general error messages.
@@ -55,10 +65,12 @@ class TimeRangesType extends AbstractType
                 ->add('start_time_'.$day, ChoiceType::class, [
                     'required' => false,
                     'choices' => $startTimeChoices,
+                    'label' => 'Start time '.self::$weekDayNames[$day],
                 ])
                 ->add('end_time_'.$day, ChoiceType::class, [
                     'required' => false,
                     'choices' => $endTimeChoices,
+                    'label' => false,
                 ]);
         }
 

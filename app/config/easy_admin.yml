@@ -75,13 +75,17 @@ easy_admin:
                       help: code.note.help
 
         Guest:
+            controller: AppBundle\Controller\GuestController
             roles: [ROLE_ADMIN]
             class: AppBundle\Entity\Guest
-            # disabled_actions: [show, delete]
+            disabled_actions: [show, delete]
             list:
+                actions: [showApp]
                 fields:
                     - property: name
                     - property: company
+                    - property: enabled
+                      type: boolean
                     - property: phone
                     - property: email
                     - property: templates
@@ -89,8 +93,29 @@ easy_admin:
                     - property: startTime
                     - property: endTime
 
-            form:
+            new:
                 fields:
+                    - property: name
+                    - property: company
+                    - property: phone
+                    - property: email
+                      type: email
+                    - property: templates
+                      type_options:
+                          expanded: true
+                          required: true
+                    - property: startTime
+                      label: Start date
+                      type: date
+                    - property: endTime
+                      label: End date
+                      type: date
+                    - property: timeRanges
+                      type: AppBundle\Form\TimeRangesType
+
+            edit:
+                fields:
+                    - property: enabled
                     - property: name
                     - property: company
                     - property: phone
