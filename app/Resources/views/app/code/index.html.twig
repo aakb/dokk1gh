@@ -32,7 +32,7 @@
                 <div class="card-footer">
                     {% if guest_can_request_code %}
                         <form method="post" action="{{ path('app_code_request', route_params|merge({template: template.id})) }}">
-                            <button type="submit" class="btn btn-primary btn-block">{{ 'Request access'|trans }}</button>
+                            <button type="submit" class="btn btn-primary btn-block btn-lg">{{ 'Request access'|trans }}</button>
                         </form>
                     {% else %}
                         <div class="alert alert-warning">{{ 'You are not allowed to request access right now'|trans }}</div>
