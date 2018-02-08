@@ -40,7 +40,8 @@ class AppKernel extends Kernel
             new SunCat\MobileDetectBundle\MobileDetectBundle(),
             new ItkDev\DatabaseBundle\ItkDevDatabaseBundle(),
             new ItkDev\MonologDbBundle\ItkDevMonologDbBundle(),
-            new \MockBundle\MockBundle(),
+            new ActionLogBundle\ActionLogBundle(),
+            new MockBundle\MockBundle(),
             new AppBundle\AppBundle(),
             new ApiBundle\ApiBundle(),
         ];

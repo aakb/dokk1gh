@@ -6,6 +6,7 @@
         "psr-4": {
             "AppBundle\\": "src/AppBundle",
             "ApiBundle\\": "src/ApiBundle",
+            "ActionLogBundle\\": "src/ActionLogBundle",
             "MockBundle\\": "src/MockBundle"
         },
         "classmap": [
