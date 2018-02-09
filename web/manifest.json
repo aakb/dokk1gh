@@ -1,0 +1,24 @@
+{
+  "short_name": "Code2Dokk1",
+  "name": "Code2Dokk1 - Generer dørkoder",
+  "icons": [
+    {
+      "src": "images/code2dokk1_launcher_ic_2x.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "images/code2dokk1_launcher_ic_3x.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "images/code2dokk1_launcher_ic_4x.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/index.html",
+  "display": "standalone",
+  "orientation": "portrait"
+}
