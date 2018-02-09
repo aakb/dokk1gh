@@ -14,7 +14,7 @@ autoprefixer = require('gulp-autoprefixer');
 
 // Set paths
 var scriptFiles = 'javascripts/*.js',
-scriptDest = 'javascripts/min',
+scriptDest = 'static/js',
 styleFiles = 'scss/*/*.scss',
 styleDest = 'stylesheets/';
 imgFiles = 'images/**/*.*',
@@ -56,15 +56,13 @@ gulp.task('icons', function() {
     // .pipe(gulp.dest(fontDest + '/fontawesome/'))
 });
 
-// Copy scripts to dist
+// Copy scripts to static
 gulp.task('scripts', function() {
     return gulp.src([
-        scriptFiles/* ,
-        'node_modules/jquery/dist/jquery.min.js',
-        'node_modules/popper.js/dist/umd/popper.min.js',
-        'node_modules/bootstrap/dist/js/bootstrap.min.js',
-        'node_modules/chart.js/dist/Chart.min.js',
-        'node_modules/jquery-validation/dist/jquery.validate.min.js' */
+        scriptFiles ,
+        'node_modules/jquery/dist/jquery.js',
+        'node_modules/popper.js/dist/umd/popper.js',
+        'node_modules/bootstrap/dist/js/bootstrap.js'
     ])
     .pipe(gulpif(jsMinify, uglify()))
     .pipe(gulpif(jsMinify, rename({ suffix: '.min' })))
@@ -76,11 +74,11 @@ gulp.task('scripts', function() {
 
 // Copy images to dist
 gulp.task('images', function() {
-//    return gulp.src(imgFiles)
-//    .pipe(gulp.dest(imgDest))
-//    .pipe(browsersync.reload({ // Reload browser with changes
-//        stream: true
-//    }))
+   return gulp.src(imgFiles)
+   .pipe(gulp.dest(imgDest))
+   .pipe(browsersync.reload({ // Reload browser with changes
+       stream: true
+   }))
 });
 
 // Compile scss to minifyed css
@@ -110,7 +108,10 @@ gulp.task('watch', [`default`], function(){
 // Reload browser with watch task
 gulp.task('browsersync', function() {
     browsersync.init({
-        files: styleDest
+        files: styleDest,
+        proxy: "dokk1gh.vm",
+        port: 8080
+
     })
 });
 
