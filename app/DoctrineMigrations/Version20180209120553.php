@@ -26,7 +26,7 @@ class Version20180209120553 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE guest ADD enabled TINYINT(1) NOT NULL, ADD activated_at DATETIME DEFAULT NULL');
+        $this->addSql('ALTER TABLE guest ADD activated_at DATETIME DEFAULT NULL');
     }
 
     /**
@@ -37,6 +37,6 @@ class Version20180209120553 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE guest DROP enabled, DROP activated_at');
+        $this->addSql('ALTER TABLE guest DROP activated_at');
     }
 }
