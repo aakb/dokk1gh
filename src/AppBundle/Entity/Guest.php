@@ -51,6 +51,15 @@ class Guest
     private $enabled;
 
     /**
+     * Time when user accepts terms and conditions.
+     *
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $activatedAt;
+
+    /**
      * @var string
      *
      * @ORM\Column(type="string", length=255)
@@ -124,6 +133,24 @@ class Guest
     public function setEnabled(bool $enabled)
     {
         $this->enabled = $enabled;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getActivatedAt()
+    {
+        return $this->activatedAt;
+    }
+
+    /**
+     * @param \DateTime $activatedAt
+     */
+    public function setActivatedAt(\DateTime $activatedAt)
+    {
+        $this->activatedAt = $activatedAt;
+
+        return $this;
     }
 
     /**

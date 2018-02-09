@@ -86,12 +86,17 @@ easy_admin:
                     - property: company
                     - property: enabled
                       type: boolean
+                    - property: activatedAt
                     - property: phone
                     - property: email
                     - property: templates
                       template: templates.html.twig
                     - property: startTime
                     - property: endTime
+                    - property: createdAt
+                      template: datetime.html.twig
+                    - property: createdBy
+                      roles: [ROLE_ADMIN]
 
             new:
                 fields:

@@ -28,6 +28,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class AppController extends Controller
 {
     const GENERATED_CODE_SESSION_KEY = 'generated_code';
+
     /** @var GuestService */
     private $guestService;
 
@@ -46,6 +47,12 @@ class AppController extends Controller
      */
     public function codeAction(Guest $guest)
     {
+        if (null === $guest->getActivatedAt()) {
+            return $this->redirectToRoute('app_guide', [
+                'guest' => $guest->getId(),
+            ]);
+        }
+
         $isValid = $this->guestService->isValid($guest);
         $canRequestCode = $this->guestService->canRequestCode($guest);
 
@@ -53,6 +60,31 @@ class AppController extends Controller
             'guest' => $guest,
             'guest_is_valid' => $isValid,
             'guest_can_request_code' => $canRequestCode,
+        ]);
+    }
+
+    /**
+     * @Route("/guide", name="app_guide")
+     * @Method("GET")
+     */
+    public function guideAction(Guest $guest)
+    {
+        return $this->render('app/onboard-guide/index.html.twig', [
+            'guest' => $guest,
+        ]);
+    }
+
+    /**
+     * @Route("/guide", name="app_accept")
+     * @Method("POST")
+     */
+    public function acceptAction(Guest $guest)
+    {
+        $this->guestService->activate($guest);
+        $this->addFlash('success', 'Guest accepted');
+
+        return $this->redirectToRoute('app_code', [
+            'guest' => $guest->getId(),
         ]);
     }
 

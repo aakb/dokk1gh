@@ -43,11 +43,20 @@ class GuestService
         $this->configuration = $configuration;
     }
 
+    public function activate(Guest $guest)
+    {
+        $guest->setActivatedAt(new \DateTime());
+        $this->manager->persist($guest);
+        $this->manager->flush();
+    }
+
     public function isValid(Guest $guest)
     {
         $now = new \DateTime();
 
         return $guest->isEnabled()
+            && null !== $guest->getActivatedAt()
+            && $guest->getActivatedAt() <= $now
             && $guest->getStartTime() <= $now
             && $now <= $guest->getEndTime();
     }
