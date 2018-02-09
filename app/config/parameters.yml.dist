@@ -148,3 +148,6 @@ parameters:
         {{ 'now' | date(format_datetime) }}: {{ guest.name }}; {{ guest.company }}; {{ guest.phone }}; {{ guest.email }}
 
     guest_code_sms_template: '%code_generate_sms.body%'
+
+    pwa_app_short_name: 'Code2Dokk1'
+    pwa_app_name: 'Code2Dokk1 - Generer dørkoder'

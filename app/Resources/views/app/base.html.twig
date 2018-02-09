@@ -8,7 +8,9 @@
         <link rel="stylesheet" href="{{ asset('stylesheets/app/app.css') }}">
         <link rel="stylesheet" href="{{ asset('static/css/fa-svg-with-js.css') }}">
 
-        <link rel="manifest" href="/manifest.json">
+        {% if guest|default(null) %}
+            <link rel="manifest" href="{{ path('app_manifest', {guest: guest.id}) }}">
+        {% endif %}
 
         <script defer src="{{ asset('static/js/fa-solid.min.js') }}"></script>
         <script defer src="{{ asset('static/js/fontawesome.min.js') }}"></script>
@@ -30,7 +32,7 @@
         {% if route %}
             <nav class="navbar navbar-expand navbar-light bg-light fixed-bottom">
                 <div class="nav navbar-nav">
-                    <a class="nav-item nav-link {{ route == 'app_code' ? 'active' }}" href="{{ path('app_code', route_params) }}"><i class="fas fa-lock-open fa-fw"></i><span>{{ 'Code'|trans }}</span></a>
+                    <a class="nav-item nav-link {{ route == 'app_main' ? 'active' }}" href="{{ path('app_main', route_params) }}"><i class="fas fa-lock-open fa-fw"></i><span>{{ 'Code'|trans }}</span></a>
                     <a class="nav-item nav-link {{ route == 'app_card' ? 'active' }}" href="{{ path('app_card', route_params) }}"><i class="fas fa-id-card fa-fw"></i><span>{{ 'Card'|trans }}</span></a>
                     <a class="nav-item nav-link {{ route == 'app_about' ? 'active' }}" href="{{ path('app_about', route_params) }}"><i class="fas fa-info-circle fa-fw"></i><span>{{ 'About'|trans }}</span></a>
                 </div>

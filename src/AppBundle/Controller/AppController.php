@@ -14,11 +14,13 @@ use AppBundle\Entity\Code;
 use AppBundle\Entity\Guest;
 use AppBundle\Entity\Template;
 use AppBundle\Exception\AbstractException;
+use AppBundle\Service\Configuration;
 use AppBundle\Service\GuestService;
 use AppBundle\Service\SmsHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Class AppController.
@@ -35,14 +37,18 @@ class AppController extends Controller
     /** @var SmsHelper */
     private $smsHelper;
 
-    public function __construct(GuestService $guestService, SmsHelper $smsHelper)
+    /** @var Configuration */
+    private $configuration;
+
+    public function __construct(GuestService $guestService, SmsHelper $smsHelper, Configuration $configuration)
     {
         $this->guestService = $guestService;
         $this->smsHelper = $smsHelper;
+        $this->configuration = $configuration;
     }
 
     /**
-     * @Route("", name="app_code")
+     * @Route("", name="app_main")
      * @Method("GET")
      */
     public function codeAction(Guest $guest)
@@ -83,7 +89,7 @@ class AppController extends Controller
         $this->guestService->activate($guest);
         $this->addFlash('success', 'Guest accepted');
 
-        return $this->redirectToRoute('app_code', [
+        return $this->redirectToRoute('app_main', [
             'guest' => $guest->getId(),
         ]);
     }
@@ -151,6 +157,51 @@ class AppController extends Controller
         return $this->render('app/about/index.html.twig');
     }
 
+    /**
+     * @Route("/mainfest.json", name="app_manifest")
+     */
+    public function manifestAction(Guest $guest)
+    {
+        $assets = $this->container->get('assets.packages');
+
+        $manifest = [
+            'short_name' => $this->configuration->get('pwa_app_name'),
+            'name' => $this->configuration->get('pwa_app_short_name'),
+                'icons' => [
+                    [
+                        'src' => $assets->getUrl('images/code2dokk1_launcher_ic_2x.png'),
+                        'sizes' => '96x96',
+                        'type' => 'image/png',
+                    ],
+                    [
+                        'src' => $assets->getUrl('images/code2dokk1_launcher_ic_3x.png'),
+                        'sizes' => '144x144',
+                        'type' => 'image/png',
+                    ],
+                    [
+                        'src' => $assets->getUrl('images/code2dokk1_launcher_ic_4x.png'),
+                        'sizes' => '192x192',
+                        'type' => 'image/png',
+                    ],
+                    [
+                        'src' => $assets->getUrl('images/code2dokk1_launcher_ic.png'),
+                        'sizes' => '512x512',
+                        'type' => 'image/png',
+                    ],
+                ],
+                'start_url' => $this->generateUrl('app_main', [
+                    'guest' => $guest->getId(),
+                    'utm_source' => 'homescreen',
+                ]),
+                'display' => 'standalone',
+                'orientation' => 'portrait',
+                'background_color' => '#003764',
+                'theme_color' => '#003764',
+        ];
+
+        return new JsonResponse($manifest);
+    }
+
     private function setGeneratedCodeData($data)
     {
         $session = $this->container->get('session');
@@ -164,7 +215,7 @@ class AppController extends Controller
         if ($session->has(self::GENERATED_CODE_SESSION_KEY)) {
             $data = $session->get(self::GENERATED_CODE_SESSION_KEY);
             if (!$peek) {
-//            $session->remove(self::GENERATED_CODE_SESSION_KEY);
+                //            $session->remove(self::GENERATED_CODE_SESSION_KEY);
             }
         }
 
