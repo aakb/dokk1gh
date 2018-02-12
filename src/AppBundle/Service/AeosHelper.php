@@ -70,11 +70,15 @@ class AeosHelper
         }
 
         if (null === $visitorName) {
-            $visitorName = $this->twig
-                ->createTemplate($this->configuration['vistor_name_template'])
-                ->render([
-                             'code' => $code,
-                         ]);
+            try {
+                $visitorName = $this->twig
+                    ->createTemplate($this->configuration['vistor_name_template'])
+                    ->render([
+                                 'code' => $code,
+                                 'user' => $user,
+                             ]);
+            } catch (\Exception $e) {
+            }
         }
         $visitorName = trim($visitorName);
 
