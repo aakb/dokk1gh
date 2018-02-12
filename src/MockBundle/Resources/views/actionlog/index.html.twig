@@ -1,0 +1,37 @@
+{% extends '@Mock/base.html.twig' %}
+
+{% block title 'action log' %}
+
+{% block body %}
+    {% if items %}
+        <table class="table">
+            <thead>
+                <th>Created at</th>
+                <th>Type</th>
+                <th>Data</th>
+            </thead>
+            {% for item in items %}
+                <tr>
+                    <td>{{ item.createdAt | date('Y-m-d H:i:s') }}</td>
+                    <td>{{ item.type }}</td>
+                    <td>
+                        <dl class="row">
+                            {% for key, value in item.data %}
+                                <dt class="col-sm-3">{{ key }}</dt>
+                                <dd class="col-sm-9">
+                                    {% if value is iterable %}
+                                        <pre>{{ value|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
+                                    {% else %}
+                                        {{ value }}
+                                    {% endif %}
+                                </dd>
+                            {% endfor %}
+                        </dl>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <div class="alert alert-info">No items</div>
+    {% endif %}
+{% endblock %}

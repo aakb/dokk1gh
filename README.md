@@ -137,7 +137,14 @@ e.g.
 bin/console app:debug notify-user-created user@example.com
 ```
 
-## Mock AEOS web service
+## Mocks
+
+```
+mkdir -p var/data
+bin/console doctrine:schema:update --em=mocks --force
+```
+
+### Mock AEOS web service
 
 `parameters.yml`:
 
@@ -146,6 +153,15 @@ aoes_location: 'http://127.0.0.1/mock/aeosws'
 aoes_username: null
 aoes_password: null
 ```
+
+### Mock SMS gateway
+
+```
+sms_gateway_location: 'http://127.0.0.1/mock/sms
+sms_gateway_username: null
+sms_gateway_password: null
+```
+
 
 # Acceptance tests
 

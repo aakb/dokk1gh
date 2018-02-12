@@ -10,12 +10,23 @@
 
 namespace MockBundle\Service;
 
+use MockBundle\Entity\AeosActionLogEntry;
 use Symfony\Component\Yaml\Yaml;
 
 class AeosWebService
 {
+    /** @var ActionLogManager */
+    private $logger;
+
+    public function __construct(ActionLogManager $logger)
+    {
+        $this->logger = $logger;
+    }
+
     public function addVisit($params)
     {
+        $this->log(__FUNCTION__, $params);
+
         $params->Id = 1;
         $params->Authorization->Id = 1;
 
@@ -24,6 +35,8 @@ class AeosWebService
 
     public function addVisitor($params)
     {
+        $this->log(__FUNCTION__, $params);
+
         return (object) [
             'Id' => 1,
             'CarrierType' => 'Visitor',
@@ -38,6 +51,8 @@ class AeosWebService
 
     public function assignToken($params)
     {
+        $this->log(__FUNCTION__, $params);
+
         $params->Id = 1;
         $params->Blocked = false;
         $params->Status = 1;
@@ -178,5 +193,10 @@ class AeosWebService
         }
 
         return $result;
+    }
+
+    private function log($type, $data)
+    {
+        $this->logger->log(new AeosActionLogEntry($type, (array) $data));
     }
 }

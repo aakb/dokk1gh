@@ -10,6 +10,8 @@
 
 namespace MockBundle\Controller;
 
+use MockBundle\Entity\AeosActionLogEntry;
+use MockBundle\Service\ActionLogManager;
 use MockBundle\Service\AeosWebService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -20,6 +22,14 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class AeosWebServiceController extends Controller
 {
+    /** @var ActionLogManager */
+    private $manager;
+
+    public function __construct(ActionLogManager $manager)
+    {
+        $this->manager = $manager;
+    }
+
     /**
      * @Route()
      */
@@ -36,5 +46,17 @@ class AeosWebServiceController extends Controller
         $response->setContent(ob_get_clean());
 
         return $response;
+    }
+
+    /**
+     * @Route("/log", name="aeosws_log")
+     */
+    public function logAction()
+    {
+        $items = $this->manager->findAll(AeosActionLogEntry::class);
+
+        return $this->render('@Mock/aeosws/index.html.twig', [
+            'items' => $items,
+        ]);
     }
 }
