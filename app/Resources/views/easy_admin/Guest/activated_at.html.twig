@@ -1,0 +1,8 @@
+{% if value %}
+    {{ value|date(format_datetime) }}
+{% else %}
+    {% set action_href = path('easyadmin', app.request.query.all|merge({ action: 'resendApp', id: item.id })) %}
+    <form method="post" action="{{ action_href }}">
+        <button type="submit" class="btn btn-default">{{ 'Resend app'|trans }}</button>
+    </form>
+{% endif %}

@@ -11,9 +11,25 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Guest;
+use AppBundle\Service\GuestService;
+use AppBundle\Service\TemplateManager;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class GuestController extends AdminController
 {
+    /** @var GuestService */
+    private $guestService;
+
+    public function __construct(
+        TokenStorageInterface $tokenStorage,
+        TemplateManager $templateManager,
+        \Twig_Environment $twig,
+        GuestService $guestService
+    ) {
+        parent::__construct($tokenStorage, $templateManager, $twig);
+        $this->guestService = $guestService;
+    }
+
     public function createNewGuestEntity()
     {
         $guest = new Guest();
@@ -30,5 +46,17 @@ class GuestController extends AdminController
         return $this->redirectToRoute('app_main', [
             'guest' => $guest->getId(),
         ]);
+    }
+
+    public function resendAppAction()
+    {
+        $id = $this->request->query->get('id');
+        $guest = $this->em->getRepository(Guest::class)->find($id);
+
+        if ($this->guestService->resendApp($guest)) {
+            $this->addFlash('info', 'App resent');
+        }
+
+        return $this->redirectToReferrer();
     }
 }

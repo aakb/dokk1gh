@@ -43,6 +43,16 @@ class GuestService
         $this->configuration = $configuration;
     }
 
+    public function sendApp(Guest $guest)
+    {
+        return true;
+    }
+
+    public function resendApp(Guest $guest)
+    {
+        return true;
+    }
+
     public function activate(Guest $guest)
     {
         $guest->setActivatedAt(new \DateTime());
