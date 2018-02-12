@@ -1,2 +1,49 @@
 .onboard-guide {
+    .slide {
+        opacity: 0;
+        &.fade-in {
+            animation: fade-in .4s forwards ease-out;
+        }
+    }
+    .header {
+        margin-bottom: 1em;
+        h1 {
+            margin-top: 0;
+        }
+    }
+    .card {
+        box-shadow: 0 0 16px rgba(0,0,0,.16);
+        margin-bottom: 1em;
+        img {
+            margin-bottom: 1em;
+        }
+    }
+    &-indicators {
+        list-style: none;
+        width: 100%;
+        margin-top: 1em;
+        padding: 0;
+        text-align: center;
+
+        li {
+            width: 10px;
+            height: 10px;
+            background: $gray-300;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background .2s ease-in;
+            &.active {
+                background: $gray-500;
+                transition: background .4s ease-out;
+            }
+        }
+    }
+    @keyframes fade-in {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+    }
 }

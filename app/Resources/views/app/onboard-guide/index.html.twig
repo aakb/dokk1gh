@@ -1,45 +1,58 @@
 {% extends 'app/base.html.twig' %}
 
 {% block content %}
-    <div class="header">
-        <h1>{{ 'Welcome'|trans }}</h1>
-        <p class="lead">{{ 'In a momoent you will be ready to generate your first code'|trans }}</p>
-    </div>
     <div class="onboard-guide">
-        <div class="slide">
+        <ol class="onboard-guide-indicators">
+            <li class="indicator"></li>
+            <li class="indicator"></li>
+            <li class="indicator"></li>
+        </ol>
+        <div class="slide fade-in">
+            <div class="header">
+                <h1>{{ 'Welcome'|trans }}</h1>
+                <p class="lead">{{ 'In a moment you will be ready to generate your first code, but first a quick guide.'|trans }}</p>
+            </div>
             <div class="card text-center">
               <div class="card-body">
-                <img src="//placehold.it/200X200" alt="Placeholder">
-                <p class="card-text">Body</p>
+                <img src="/images/guide-screen1.png" class="img-fluid" alt="Select area">
+                <p class="card-text">{{ 'Select the building area you want to access'|trans }}</p>
               </div>
-            </div>
-            <div class="pager">
-                1/3
             </div>
             <button class="btn btn-primary btn-lg btn-block" onclick="guideSteps()">{{ 'Next'|trans }}</button>
         </div>
-        <div class="slide">
+        <div class="slide fade-in slide-in">
+            {# <ol class="onboard-guide-indicators">
+                <li></li>
+                <li class="active"></li>
+                <li></li>
+            </ol> #}
+            <div class="header">
+                <h1>{{ 'Welcome'|trans }}</h1>
+                <p class="lead">{{ 'In a moment you will be ready to generate your first code, but first a quick guide.'|trans }}</p>
+            </div>
             <div class="card text-center">
               <div class="card-body">
-                <img src="//placehold.it/200X200" alt="Placeholder">
-                <p class="card-text">Body</p>
+                <img src="/images/guide-screen2.png" class="img-fluid" alt="Select area">
+                <p class="card-text">{{ 'You now recive an SMS with the doorcode. The code will only work for 10 min.'|trans }}</p>
               </div>
-            </div>
-            <div class="pager">
-                2/3
             </div>
             <button class="btn btn-primary btn-lg btn-block" onclick="guideSteps()">{{ 'Next'|trans }}</button>
         </div>
-        <div class="slide">
-            <div class="card text-center">
-              <div class="card-body">
-                <img src="//placehold.it/200X200" alt="Placeholder">
-                <p class="card-text">Body</p>
-              </div>
+        <div class="slide fade-in slide-in">
+            <div class="header">
+                <h1>{{ 'Accept terms'|trans }}</h1>
             </div>
-            <div class="pager">
-                3/3
-            </div>
+            {# <ol class="onboard-guide-indicators">
+                <li></li>
+                <li></li>
+                <li class="active"></li>
+            </ol> #}
+            <h2>Generelle betingelser</h2>
+            <p>§1 Aliquam mi odio, elementum et suscipit sed, mattis sit amet mi.</p>
+            <p>Curabitur sed interdum urna. Ut scelerisque purus at mauris iaculis aliquet.</p>
+            <p>Ut porta justo vitae ipsum commodo, et elementum arcu tincidunt. </p>
+            <h2>Nulla sagittis et arcu</h2>
+            <p>Ut lacinia viverra eros a accumsan. Nam rutrum id sapien quis pulvinar. Pellentesque convallis, metus suscipit aliquet lacinia, leo dui fringilla tortor, eget elementum risus turpis in nisl. Suspendisse vestibulum elit tellus, eget lacinia lacus tempus ut. Suspendisse varius lacus non mauris lobortis blandit. Praesent cursus dictum sagittis.</p>
 
             {% if guest.activatedAt == null %}
                 <form method="post" action="{{ path('app_accept', {guest: guest.id}) }}">
@@ -50,14 +63,29 @@
             {% endif %}
         </div>
     </div>
+    <style>
+        {# TODO: Is there a better way to hide the navbar through the guide? #}
+        .navbar {
+            display: none;
+        }
+    </style>
     <script>
         var slides = document.querySelectorAll('.slide');
         slides = Array.prototype.slice.call(slides);
         var currentSlide = 0;
+        var indicator = document.querySelectorAll('.indicator');
+        indicator = Array.prototype.slice.call(indicator);
+        function indicators() {
+            indicator.forEach(function(ol, index){
+                ol.className = (index === currentSlide) ? 'active':'';
+            })
+            console.log(indicator);
+        }
         function guideSteps() {
             slides.forEach(function(slide, index){
                 slide.style.display = (index === currentSlide) ? 'block':'none';
             })
+            indicators();
             currentSlide++;
         }
         guideSteps();
