@@ -114,7 +114,7 @@ class AppController extends Controller
         } catch (AbstractException $exception) {
             $messages['danger'][] = $exception->getMessage();
         }
-        $this->setGeneratedCodeData([$code, $status, $messages]);
+        $this->setGeneratedCodeData([$code->getId(), $status, $messages]);
 
         return $this->redirectToRoute('app_code_request_result', [
             'guest' => $guest->getId(),
@@ -128,7 +128,10 @@ class AppController extends Controller
      */
     public function codeRequestResultAction(Guest $guest, Template $template)
     {
-        list($code, $status, $messages) = $this->getGeneratedCodeData();
+        list($codeId, $status, $messages) = $this->getGeneratedCodeData();
+        $code = null !== $codeId
+            ? $this->container->get('doctrine')->getRepository(Code::class)->find($codeId)
+            : null;
 
         return $this->render('app/code/request_result.html.twig', [
             'guest' => $guest,
