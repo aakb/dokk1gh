@@ -21,6 +21,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class AppController.
@@ -203,6 +204,24 @@ class AppController extends Controller
         ];
 
         return new JsonResponse($manifest);
+    }
+
+    /**
+     * @Route("/offline", name="app_offline")
+     */
+    public function offlineAction()
+    {
+        return $this->render('app/offline.html.twig');
+    }
+
+    /**
+     * @Route("/serviceworker.js", name="app_serviceworker")
+     */
+    public function serviceworkerAction()
+    {
+        $content = $this->renderView('app/javascripts/sw.js.twig');
+
+        return new Response($content, 200, ['content-type' => 'text/javascript']);
     }
 
     private function setGeneratedCodeData($data)

@@ -1,0 +1,23 @@
+{% set route_params = app.request.attributes.get('_route_params')|default({}) %}
+
+var CACHE_NAME = 'code2dokk1-v1';
+var urlsToCache =
+    {{ [
+        path('app_main', route_params),
+        path('app_card', route_params),
+        path('app_about', route_params),
+        path('app_offline', route_params),
+        asset('/stylesheets/app/app.css'),
+        asset('/static/js/scripts.min.js')
+    ]|json_encode|raw }};
+
+self.addEventListener("install", function(event) {
+    // Perform install steps
+    event.waitUntil(
+        caches.open(CACHE_NAME).then(function(cache) {
+            console.log("Opened cache");
+            console.log(urlsToCache);
+            return cache.addAll(urlsToCache);
+        })
+    );
+});

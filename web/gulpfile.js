@@ -10,13 +10,14 @@ plumber = require('gulp-plumber'),
 gutil = require('gulp-util'),
 uglify = require('gulp-uglify'),
 rename = require('gulp-rename'),
+concat = require('gulp-concat'),
 autoprefixer = require('gulp-autoprefixer');
 
 // Set paths
 var scriptFiles = 'javascripts/*.js',
 scriptDest = 'static/js',
 styleFiles = 'scss/*/*.scss',
-styleDest = 'stylesheets/';
+styleDest = 'stylesheets/',
 imgFiles = 'images/**/*.*',
 imgDest = 'static/img',
 fontFiles = 'fonts/**/*.*',
@@ -66,6 +67,7 @@ gulp.task('scripts', function() {
     ])
     .pipe(gulpif(jsMinify, uglify()))
     .pipe(gulpif(jsMinify, rename({ suffix: '.min' })))
+    .pipe(gulpif(jsMinify, concat('app.js')))
     .pipe(gulp.dest(scriptDest))
     .pipe(browsersync.reload({ // Reload browser with changes
         stream: true

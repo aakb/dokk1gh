@@ -1,4 +1,7 @@
 .card {
+    &.shadow {
+        box-shadow: 0 0 16px rgba(0,0,0,.16);
+    }
     &-footer {
         .guest-area & {
             padding: 0;

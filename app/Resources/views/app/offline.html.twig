@@ -1,0 +1,18 @@
+{% extends 'app/base.html.twig' %}
+
+{% block content %}
+    <div class="header">
+        <h1>{{ 'No network connection'|trans }}</h1>
+        <p class="lead">{{ 'Check your device network connection and try again'|trans }}</p>
+    </div>
+    <div class="text-center">
+        <i class="fas fa-wifi fa-3x"></i>
+        <p>{{ 'Offline'|trans }}</p>
+    </div>
+    <style>
+        {# TODO: Is there a better way to hide the navbar through the guide? #}
+        .navbar {
+            display: none;
+        }
+    </style>
+{% endblock %}
