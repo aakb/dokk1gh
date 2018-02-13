@@ -122,7 +122,6 @@ easy_admin:
             edit:
                 fields:
                     - property: enabled
-                    - property: activatedAt
                     - property: name
                     - property: company
                     - property: phone
