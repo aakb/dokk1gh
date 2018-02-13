@@ -159,6 +159,16 @@ parameters:
 
     guest_app_email_sender_email: '%mailer_email%'
     guest_app_email_sender_name: '%mailer_name%'
-    guest_app_email_subject_template: guest_app_email_subject_template
-    guest_app_email_body_template: guest_app_email_body_template
-    guest_app_sms_template: guest_app_sms_template
+    guest_app_email_subject_template: >-
+        Gæstehåndtering – App'en
+    guest_app_email_body_template: |-
+        Du kan åbne din helt personlige app på: {{ url('app_main', {guest: guest.id}) }}.
+
+        Venlig hilsen
+        {{ site_name }}
+
+    guest_app_sms_body_template: |-
+        Du kan åbne din helt personlige app på: {{ url('app_main', {guest: guest.id}) }}.
+
+        Venlig hilsen
+        {{ site_name }}

@@ -47,7 +47,7 @@ class SmsHelper
         $recipient = $guest->getPhone();
         $template =
         $message = $this->twigHelper->renderTemplate(
-            $this->configuration->get('guest_app_sms_template'),
+            $this->configuration->get('guest_app_sms_body_template'),
             [
                 'guest' => $guest,
             ]

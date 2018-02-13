@@ -19,11 +19,7 @@
                             {% for key, value in item.data %}
                                 <dt class="col-sm-3">{{ key }}</dt>
                                 <dd class="col-sm-9">
-                                    {% if value is iterable %}
-                                        <pre>{{ value|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
-                                    {% else %}
-                                        {{ value }}
-                                    {% endif %}
+                                    <pre>{{ value is iterable ? value|json_encode(constant('JSON_PRETTY_PRINT')) : value }}</pre>
                                 </dd>
                             {% endfor %}
                         </dl>
