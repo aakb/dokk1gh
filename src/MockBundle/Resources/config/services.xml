@@ -8,7 +8,16 @@
         <!-- Default configuration for services in *this* file -->
         <defaults autowire="true" autoconfigure="true" public="false" />
 
-        <!-- Load services from whatever directories you want (you can update this!) -->
-        <prototype namespace="MockBundle\" resource="../../*" exclude="../../{Entity,Repository}" />
+        <service id="MockBundle\Service\ActionLogManager">
+            <argument type="service" id="doctrine.orm.mocks_entity_manager"/>
+        </service>
+
+        <service id="MockBundle\Controller\AeosWebServiceController">
+            <argument type="service" id="MockBundle\Service\ActionLogManager"/>
+        </service>
+
+        <service id="MockBundle\Controller\SmsGatewayController">
+            <argument type="service" id="MockBundle\Service\ActionLogManager"/>
+        </service>
     </services>
 </container>
