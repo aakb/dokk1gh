@@ -28,28 +28,47 @@ class GuestService
     /** @var \Twig_Environment */
     private $twig;
 
-    /** @var array */
+    /** @var Configuration */
     private $configuration;
+
+    /** @var SmsHelper */
+    private $smsHelper;
+
+    /** @var MailerInterface */
+    private $mailHelper;
 
     public function __construct(
         AeosHelper $aeosHelper,
         EntityManagerInterface $manager,
         \Twig_Environment $twig,
-        array $configuration
+        Configuration $configuration,
+        SmsHelper $smsHelper,
+        MailHelper $mailHelper
     ) {
         $this->aeosHelper = $aeosHelper;
         $this->manager = $manager;
         $this->twig = $twig;
         $this->configuration = $configuration;
+        $this->smsHelper = $smsHelper;
+        $this->mailHelper = $mailHelper;
     }
 
+    /**
+     * Send app url to user via sms and email.
+     *
+     * @param Guest $guest
+     *
+     * @return bool
+     */
     public function sendApp(Guest $guest)
     {
-        return true;
-    }
+        if (null !== $guest->getPhone()) {
+            $this->smsHelper->sendApp($guest);
+        }
+        if (null !== $guest->getEmail()) {
+            $this->mailHelper->sendApp($guest);
+        }
 
-    public function resendApp(Guest $guest)
-    {
         return true;
     }
 
@@ -95,10 +114,10 @@ class GuestService
                 ->setCreatedBy($guest->getCreatedBy())
                 ->setTemplate($template)
                 ->setStartTime(new \DateTime())
-                ->setEndTime(new \DateTime($this->configuration['guest_code']['duration']));
+                ->setEndTime(new \DateTime($this->configuration->get('guest_code_duration')));
 
             $visitorName = $this->twig
-                ->createTemplate($this->configuration['guest_code']['name_template'])
+                ->createTemplate($this->configuration->get('guest_code_name_template'))
                 ->render([
                              'guest' => $guest,
                              'template' => $template,
@@ -110,7 +129,6 @@ class GuestService
 
             return $code;
         } catch (\Exception $ex) {
-            throw $ex;
             throw new GuestException('Cannot generate code');
         }
     }

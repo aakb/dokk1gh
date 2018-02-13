@@ -57,32 +57,45 @@ class SmsGatewayController extends Controller
      */
     public function sendAction(Request $request)
     {
+        $username = $request->get('username');
+        $password = $request->get('password');
         $countryCode = $request->get('countrycode');
         $number = $request->get('number');
         $message = $request->get('message');
         $callbackUrl = $request->get('callbackurl');
 
-        $messageId = 0;
+        $messageId = -1;
         $status = -1;
         $statusDescription = 'error';
 
-        if ($countryCode && $number && $message) {
-            $this->manager->log(new SmsGatewayActionLogEntry('send_sms', [
-                'countrycode' => $countryCode,
-                'number' => $number,
-                'message' => $message,
-            ]));
-
-            $messageId = random_int(1, PHP_INT_MAX);
-            $status = 0;
-            $statusDescription = 'ok';
+        if (empty($username) || $username !== $password) {
+            $status = 87;
+            $statusDescription = 'Invalid credentials';
+        } else {
+            if ($countryCode && $number && $message) {
+                $messageId = uniqid();
+                $status = 0;
+                $statusDescription = 'ok';
+            } else {
+                $status = 42;
+                $statusDescription = 'Missing country, number or message';
+            }
         }
+
+        $this->manager->log(new SmsGatewayActionLogEntry('send_sms', [
+            'countrycode' => $countryCode,
+            'number' => $number,
+            'message' => $message,
+            'msg_id' => $messageId,
+            'status' => $status,
+            'status_description' => $statusDescription,
+        ]));
 
         if (null !== $callbackUrl) {
             $url = $callbackUrl
                 .(false === strpos($callbackUrl, '?') ? '?' : ':')
                 .http_build_query([
-                                      'msg_id' => uniqid(),
+                                      'msg_id' => $messageId,
                                       'status' => $status,
                                       'status_description' => $statusDescription,
                                   ]);

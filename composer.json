@@ -29,6 +29,7 @@
         "doctrine/orm": "^2.5",
         "friendsofsymfony/rest-bundle": "^2.3",
         "friendsofsymfony/user-bundle": "^2.0",
+        "guzzlehttp/guzzle": "^6.3",
         "incenteev/composer-parameter-handler": "^2.1",
         "itk-dev/database-bundle": "^1.0",
         "itk-dev/monolog-db-bundle": "^1.0",

@@ -48,13 +48,13 @@ class GuestController extends AdminController
         ]);
     }
 
-    public function resendAppAction()
+    public function sendAppAction()
     {
         $id = $this->request->query->get('id');
         $guest = $this->em->getRepository(Guest::class)->find($id);
 
-        if ($this->guestService->resendApp($guest)) {
-            $this->addFlash('info', 'App resent');
+        if ($this->guestService->sendApp($guest)) {
+            $this->addFlash('info', 'App sent');
         }
 
         return $this->redirectToReferrer();

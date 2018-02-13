@@ -28,33 +28,55 @@ class SmsHelper
     private $configuration;
 
     /** @var \Twig_Environment */
-    private $twig;
+    private $twigHelper;
 
     public function __construct(
         SmsServiceInterface $smsService,
         EntityActionLogger $actionLogger,
         Configuration $configuration,
-        \Twig_Environment $twig
+        TwigHelper $twigHelper
     ) {
         $this->smsService = $smsService;
         $this->actionLogger = $actionLogger;
-        $this->twig = $twig;
+        $this->twigHelper = $twigHelper;
         $this->configuration = $configuration;
+    }
+
+    public function sendApp(Guest $guest)
+    {
+        $recipient = $guest->getPhone();
+        $template =
+        $message = $this->twigHelper->renderTemplate(
+            $this->configuration->get('guest_app_sms_template'),
+            [
+                'guest' => $guest,
+            ]
+        );
+        $this->smsService->send($recipient, $message);
+
+        $this->actionLogger->log($guest, self::SMS_SENT, [
+            'guest' => $guest,
+            'message' => $message,
+        ]);
     }
 
     public function sendCode(Guest $guest, Code $code)
     {
         $recipient = $guest->getPhone();
-        $template = $this->configuration->get('guest_code_sms_template');
-        $message = $this->twig
-            ->createTemplate($template)
-            ->render([
+
+        $message = $this->twigHelper->renderTemplate(
+            $this->configuration->get('guest_code_sms_template'),
+            [
                 'guest' => $guest,
                 'code' => $code,
-            ]);
+            ]
+        );
         $this->smsService->send($recipient, $message);
+
         $this->actionLogger->log($guest, self::SMS_SENT, [
+            'guest' => $guest,
             'code' => $code,
+            'message' => $message,
         ]);
     }
 }

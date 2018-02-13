@@ -151,3 +151,14 @@ parameters:
 
     pwa_app_short_name: 'Code2Dokk1'
     pwa_app_name: 'Code2Dokk1 - Generer dørkoder'
+
+    sms_gateway_url: '%site_url%/mock/sms/send'
+    sms_gateway_username: test
+    sms_gateway_password: test
+    sms_gateway_default_countrycode: '+45'
+
+    guest_app_email_sender_email: '%mailer_email%'
+    guest_app_email_sender_name: '%mailer_name%'
+    guest_app_email_subject_template: guest_app_email_subject_template
+    guest_app_email_body_template: guest_app_email_body_template
+    guest_app_sms_template: guest_app_sms_template
