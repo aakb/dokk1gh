@@ -94,6 +94,7 @@ doctrine:
                 mappings:
                     AppBundle: ~
                     ApiBundle: ~
+                    ActionLogBundle: ~
                 filters:
                     softdeleteable:
                         class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
