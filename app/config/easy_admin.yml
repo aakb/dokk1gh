@@ -207,6 +207,7 @@ easy_admin:
             list:
                 fields:
                     - property: name
+                    - property: level
                     - property: enabled
                       type: boolean
                     - property: aeosId
@@ -220,6 +221,8 @@ easy_admin:
                 fields:
                     - property: enabled
                     - property: name
+                    - property: level
+                    - property: description
                     - property: aeosId
                       type_options:
                           required: false

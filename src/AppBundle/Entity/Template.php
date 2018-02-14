@@ -63,6 +63,22 @@ class Template
     /**
      * @var string
      *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @JMS\Groups({"api"})
+     */
+    private $level;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="text", nullable=true)
+     * @JMS\Groups({"api"})
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
      * @Assert\AeosTemplateId()
      *
      * @ORM\Column(type="string", length=255)
@@ -129,6 +145,54 @@ class Template
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set level.
+     *
+     * @param string $level
+     *
+     * @return Template
+     */
+    public function setLevel($level)
+    {
+        $this->level = $level;
+
+        return $this;
+    }
+
+    /**
+     * Get level.
+     *
+     * @return string
+     */
+    public function getLevel()
+    {
+        return $this->level;
+    }
+
+    /**
+     * Set description.
+     *
+     * @param string $description
+     *
+     * @return Template
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description.
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 
     /**

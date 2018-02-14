@@ -26,8 +26,12 @@
             <div class="card guest-area">
                 <div class="card-body">
                     <h2 class="card-title area-name">{{ template.name }}</h2>
-                    <h4 class="location">{{ 'Level'|trans }} 2.2 {# TODO: get level from {{ template.location }} #}</h4>
-                    <p class="card-text description">Short description of the area and how to get there. {# TODO: get description from template {{ template.description }} #}</p>
+                    {% if template.level %}
+                        <h4 class="location">{{ 'Level %level%'|trans({ '%level%': template.level }) }}</h4>
+                    {% endif %}
+                    {% if template.description %}
+                        <p class="card-text description">{{ template.description }}</p>
+                    {% endif %}
                 </div>
                 <div class="card-footer">
                     {% if guest_can_request_code %}
