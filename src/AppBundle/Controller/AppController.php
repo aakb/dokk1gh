@@ -49,7 +49,7 @@ class AppController extends Controller
     }
 
     /**
-     * @Route("", name="app_main")
+     * @Route("/code", name="app_main")
      * @Method("GET")
      */
     public function codeAction(Guest $guest)

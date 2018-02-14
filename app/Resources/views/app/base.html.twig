@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="{{ asset('static/css/fa-svg-with-js.css') }}">
 
         <!-- iOS webapp tricks -->
-        <meta name="apple-mobile-web-app-title" content="{{ app_name }}">
+        <meta name="apple-mobile-web-app-title" content="{{ app_name }}"><!-- TODO: use pwa_app_name -->
         {# <meta name="apple-mobile-web-app-capable" content="yes"> #}
         <link rel="apple-touch-icon" href="{{ asset('images/code2dokk1_launcher_ic_512.png') }}">
         <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('images/code2dokk1_launcher_ic_152.png') }}">
@@ -48,23 +48,16 @@
 
         <!-- Register serviceworker -->
         <script>
-            if ('serviceWorker' in navigator && 'PushManager' in window) {
-            console.log('Service Worker and Push is supported');
-
-            navigator.serviceWorker.register({{ path('app_serviceworker', route_params)|json_encode|raw }})
-            .then(function(swReg) {
-                console.log('Service Worker is registered', swReg);
-
-                swRegistration = swReg;
-            })
-            .catch(function(error) {
-                console.error('Service Worker Error', error);
-            });
+        if('serviceWorker' in navigator) {
+            if (navigator.serviceWorker.controller) {
+            console.log('Active service worker found, no need to register')
             } else {
-                console.warn('Push messaging is not supported');
-                pushButton.textContent = 'Push Not Supported';
+            //Register the ServiceWorker
+            navigator.serviceWorker.register({{ path('app_serviceworker', route_params)|json_encode|raw }}).then(function(reg) {
+                console.log('Service worker has been registered for scope:'+ reg.scope);
+            });
             }
+        }
         </script>
-
     </body>
 </html>

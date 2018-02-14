@@ -1,5 +1,4 @@
 {% set route_params = app.request.attributes.get('_route_params')|default({}) %}
-var CACHE_NAME = 'code2dokk1-v1';
 var urlsToCache =
     {{ [
         path('app_main', route_params),
@@ -11,21 +10,19 @@ var urlsToCache =
         asset('/static/js/app.min.js')
     ]|json_encode|raw }};
 
-self.addEventListener("install", function(event) {
-    // Perform install steps
-    event.waitUntil(
-        caches.open(CACHE_NAME).then(function(cache) {
-            console.log("Opened cache");
-            console.log(urlsToCache);
-            return cache.addAll(urlsToCache);
-        })
-    );
+self.addEventListener("install", function(e) {
+  e.waitUntil(
+    caches.open("code2dokk1").then(function(cache) {
+      return cache.addAll(urlsToCache);
+    })
+  );
 });
-self.addEventListener('fetch', function(event) {
-    console.log(event.request.url);
-    event.respondWith(
-        caches.match(event.request).then(function(response) {
-            return response || fetch(event.request);
-        })
-    );
+self.addEventListener("fetch", function(event) {
+  console.log(event.request.url);
+
+  event.respondWith(
+    caches.match(event.request).then(function(response) {
+      return response || fetch(event.request);
+    })
+  );
 });
