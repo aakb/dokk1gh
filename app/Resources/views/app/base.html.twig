@@ -3,17 +3,23 @@
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
+        <meta name="description" content="Code2Dokk1 - Door code generator"><!-- TODO: Add app description -->
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="theme-color" content="#003764">
         <link rel="stylesheet" href="{{ asset('stylesheets/app/app.css') }}">
         <link rel="stylesheet" href="{{ asset('static/css/fa-svg-with-js.css') }}">
 
+        <!-- iOS webapp tricks -->
+        <meta name="apple-mobile-web-app-title" content="{{ app_name }}">
+        {# <meta name="apple-mobile-web-app-capable" content="yes"> #}
+        <link rel="apple-touch-icon" href="{{ asset('images/code2dokk1_launcher_ic_512.png') }}">
+        <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('images/code2dokk1_launcher_ic_152.png') }}">
+        <link rel="apple-touch-icon" sizes="167x167" href="{{ asset('images/code2dokk1_launcher_ic_167.png') }}">
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/code2dokk1_launcher_ic_180.png') }}">
+
         {% if guest|default(null) %}
             <link rel="manifest" href="{{ path('app_manifest', {guest: guest.id}) }}">
         {% endif %}
-
-        {# <script defer src="{{ asset('static/js/fa-solid.min.js') }}"></script>
-        <script defer src="{{ asset('static/js/fontawesome.min.js') }}"></script> #}
 
         <title>{{ app_name }}</title>
     </head>

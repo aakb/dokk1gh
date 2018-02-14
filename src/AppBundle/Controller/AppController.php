@@ -169,27 +169,102 @@ class AppController extends Controller
         $assets = $this->container->get('assets.packages');
 
         $manifest = [
-            'short_name' => $this->configuration->get('pwa_app_name'),
-            'name' => $this->configuration->get('pwa_app_short_name'),
+            'short_name' => $this->configuration->get('pwa_app_short_name'),
+            'name' => $this->configuration->get('pwa_app_name'),
                 'icons' => [
                     [
-                        'src' => $assets->getUrl('images/code2dokk1_launcher_ic_2x.png'),
+                        'src' => $assets->getUrl('images/code2dokk1_launcher_ic_20.png'),
+                        'sizes' => '20x20',
+                        'type' => 'image/png',
+                    ],
+                    [
+                        'src' => $assets->getUrl('images/code2dokk1_launcher_ic_29.png'),
+                        'sizes' => '29x29',
+                        'type' => 'image/png',
+                    ],
+                    [
+                        'src' => $assets->getUrl('images/code2dokk1_launcher_ic_40.png'),
+                        'sizes' => '40x40',
+                        'type' => 'image/png',
+                    ],
+                    [
+                        'src' => $assets->getUrl('images/code2dokk1_launcher_ic_48.png'),
+                        'sizes' => '48x48',
+                        'type' => 'image/png',
+                    ],
+                    [
+                        'src' => $assets->getUrl('images/code2dokk1_launcher_ic_58.png'),
+                        'sizes' => '58x58',
+                        'type' => 'image/png',
+                    ],
+                    [
+                        'src' => $assets->getUrl('images/code2dokk1_launcher_ic_60.png'),
+                        'sizes' => '60x60',
+                        'type' => 'image/png',
+                    ],
+                    [
+                        'src' => $assets->getUrl('images/code2dokk1_launcher_ic_72.png'),
+                        'sizes' => '72x72',
+                        'type' => 'image/png',
+                    ],
+                    [
+                        'src' => $assets->getUrl('images/code2dokk1_launcher_ic_76.png'),
+                        'sizes' => '76x76',
+                        'type' => 'image/png',
+                    ],
+                    [
+                        'src' => $assets->getUrl('images/code2dokk1_launcher_ic_80.png'),
+                        'sizes' => '80x80',
+                        'type' => 'image/png',
+                    ],
+                    [
+                        'src' => $assets->getUrl('images/code2dokk1_launcher_ic_87.png'),
+                        'sizes' => '87x87',
+                        'type' => 'image/png',
+                    ],
+                    [
+                        'src' => $assets->getUrl('images/code2dokk1_launcher_ic_96.png'),
                         'sizes' => '96x96',
                         'type' => 'image/png',
                     ],
                     [
-                        'src' => $assets->getUrl('images/code2dokk1_launcher_ic_3x.png'),
+                        'src' => $assets->getUrl('images/code2dokk1_launcher_ic_120.png'),
+                        'sizes' => '120x120',
+                        'type' => 'image/png',
+                    ],
+                    [
+                        'src' => $assets->getUrl('images/code2dokk1_launcher_ic_144.png'),
                         'sizes' => '144x144',
                         'type' => 'image/png',
                     ],
                     [
-                        'src' => $assets->getUrl('images/code2dokk1_launcher_ic_4x.png'),
+                        'src' => $assets->getUrl('images/code2dokk1_launcher_ic_152.png'),
+                        'sizes' => '152x152',
+                        'type' => 'image/png',
+                    ],
+                    [
+                        'src' => $assets->getUrl('images/code2dokk1_launcher_ic_167.png'),
+                        'sizes' => '167x167',
+                        'type' => 'image/png',
+                    ],
+                    [
+                        'src' => $assets->getUrl('images/code2dokk1_launcher_ic_180.png'),
+                        'sizes' => '180x180',
+                        'type' => 'image/png',
+                    ],
+                    [
+                        'src' => $assets->getUrl('images/code2dokk1_launcher_ic_192.png'),
                         'sizes' => '192x192',
                         'type' => 'image/png',
                     ],
                     [
-                        'src' => $assets->getUrl('images/code2dokk1_launcher_ic.png'),
+                        'src' => $assets->getUrl('images/code2dokk1_launcher_ic_512.png'),
                         'sizes' => '512x512',
+                        'type' => 'image/png',
+                    ],
+                    [
+                        'src' => $assets->getUrl('images/code2dokk1_launcher_ic_1024.png'),
+                        'sizes' => '1024x1024',
                         'type' => 'image/png',
                     ],
                 ],
@@ -201,6 +276,7 @@ class AppController extends Controller
                 'orientation' => 'portrait',
                 'background_color' => '#003764',
                 'theme_color' => '#003764',
+                'lang' => 'da',
         ];
 
         return new JsonResponse($manifest);
