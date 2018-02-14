@@ -1,6 +1,6 @@
 {% if is_mobile() %}
   <span class="code-sms">
-    {% set body = include(template_from_string(get_app_parameter('code_generate_sms.body'))) %}
+    {% set body = include(template_from_string(get_configuration('code_generate_sms.body'))) %}
     {% set separator = is_ios() ? '&' : '?' %}
     {% set url = 'sms:' ~ separator ~ ({body: body}|url_encode) %}
     <a class="btn btn-link btn-xs" href="{{ url }}"><span class="fa fa-commenting"></span></a>

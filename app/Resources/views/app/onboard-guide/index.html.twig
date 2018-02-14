@@ -50,16 +50,10 @@
                     <button type="submit" class="btn btn-primary btn-lg btn-block" onclick="guideSteps()">{{ 'I agree'|trans }}</button>
                 </form>
             {% else %}
-                <a class="btn btn-primary btn-lg btn-block" href="{{ path('app_main', {guest: guest.id}) }}">{{ 'OK'|trans }}</a>
+                <a class="btn btn-primary btn-lg btn-block" href="{{ path('app_code', {guest: guest.id}) }}">{{ 'OK'|trans }}</a>
             {% endif %}
         </div>
     </div>
-    <style>
-        {# TODO: Is there a better way to hide the navbar through the guide? #}
-        .navbar {
-            display: none;
-        }
-    </style>
     <script>
         var slides = document.querySelectorAll('.slide');
         slides = Array.prototype.slice.call(slides);

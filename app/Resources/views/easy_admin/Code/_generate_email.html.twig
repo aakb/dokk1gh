@@ -1,7 +1,7 @@
 {% if not is_mobile() %}
   <span class="code-email">
-    {% set subject = include(template_from_string(get_app_parameter('code_generate_email.subject'))) %}
-    {% set body = include(template_from_string(get_app_parameter('code_generate_email.body'))) %}
+    {% set subject = include(template_from_string(get_configuration('code_generate_email.subject'))) %}
+    {% set body = include(template_from_string(get_configuration('code_generate_email.body'))) %}
     {% set url = 'mailto:?' ~ ({subject: subject, body: body, cc: app.user.email}|url_encode) %}
     <a class="btn btn-link btn-xs" href="{{ url }}"><span class="fa fa-envelope"></span></a>
   </span>

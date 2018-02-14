@@ -11,6 +11,7 @@
 namespace AppBundle\Service;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 
 class Configuration
 {
@@ -23,7 +24,21 @@ class Configuration
 
     public function get($path)
     {
-        $config = $this->container->getParameter($path);
+        $parameters = $this->container->getParameterBag();
+        if ($parameters->has($path)) {
+            $config = $parameters->get($path);
+        } else {
+            $steps = explode('.', $path);
+            foreach ($steps as $index => $step) {
+                if (0 === $index) {
+                    $config = $parameters->get($step);
+                } elseif (!isset($config[$step])) {
+                    throw new ParameterNotFoundException(implode('.', array_slice($steps, 0, $index + 1)));
+                } else {
+                    $config = $config[$step];
+                }
+            }
+        }
 
         if ('code.config' === $path) {
             $config['daysDisabled'] = array_values(

@@ -172,3 +172,24 @@ parameters:
 
         Venlig hilsen
         {{ site_name }}
+
+    app_icons:
+        20x20: images/code2dokk1_launcher_ic_20.png
+        29x29: images/code2dokk1_launcher_ic_29.png
+        40x40: images/code2dokk1_launcher_ic_40.png
+        48x48: images/code2dokk1_launcher_ic_48.png
+        58x58: images/code2dokk1_launcher_ic_58.png
+        60x60: images/code2dokk1_launcher_ic_60.png
+        72x72: images/code2dokk1_launcher_ic_72.png
+        76x76: images/code2dokk1_launcher_ic_76.png
+        80x80: images/code2dokk1_launcher_ic_80.png
+        87x87: images/code2dokk1_launcher_ic_87.png
+        96x96: images/code2dokk1_launcher_ic_96.png
+        120x120: images/code2dokk1_launcher_ic_120.png
+        144x144: images/code2dokk1_launcher_ic_144.png
+        152x152: images/code2dokk1_launcher_ic_152.png
+        167x167: images/code2dokk1_launcher_ic_167.png
+        180x180: images/code2dokk1_launcher_ic_180.png
+        192x192: images/code2dokk1_launcher_ic_192.png
+        512x512: images/code2dokk1_launcher_ic_512.png
+        1024x1024: images/code2dokk1_launcher_ic_1024.png

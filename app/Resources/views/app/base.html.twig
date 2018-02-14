@@ -1,27 +1,34 @@
 <!doctype html>
+
+{% set route = app.request.attributes.get('_route')|default(null) %}
+{% set route_params = app.request.attributes.get('_route_params')|default({}) %}
+{% set on_app_page = route and route matches '/^app_(code|card|about)/' %}
+
 <html lang="en">
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
-        <meta name="description" content="Code2Dokk1 - Door code generator"><!-- TODO: Add app description -->
+        <meta name="description" content="{{ get_configuration('pwa_app_name') }}">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="theme-color" content="#003764">
         <link rel="stylesheet" href="{{ asset('stylesheets/app/app.css') }}">
         <link rel="stylesheet" href="{{ asset('static/css/fa-svg-with-js.css') }}">
 
         <!-- iOS webapp tricks -->
-        <meta name="apple-mobile-web-app-title" content="{{ app_name }}"><!-- TODO: use pwa_app_name -->
+        <meta name="apple-mobile-web-app-title" content="{{ get_configuration('pwa_app_short_name') }}">
         {# <meta name="apple-mobile-web-app-capable" content="yes"> #}
-        <link rel="apple-touch-icon" href="{{ asset('images/code2dokk1_launcher_ic_512.png') }}">
-        <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('images/code2dokk1_launcher_ic_152.png') }}">
-        <link rel="apple-touch-icon" sizes="167x167" href="{{ asset('images/code2dokk1_launcher_ic_167.png') }}">
-        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/code2dokk1_launcher_ic_180.png') }}">
+        <link rel="apple-touch-icon" href="{{ asset(app_icon(512)) }}">
+        {% for size in [152, 167, 180] %}
+            <link rel="apple-touch-icon" sizes="{{ size }}x{{ size }}" href="{{ asset(app_icon(size)) }}">
+        {% endfor %}
 
-        {% if guest|default(null) %}
-            <link rel="manifest" href="{{ path('app_manifest', {guest: guest.id}) }}">
+        {% if on_app_page %}
+            {% if guest|default(null) %}
+                <link rel="manifest" href="{{ path('app_manifest', {guest: guest.id}) }}">
+            {% endif %}
         {% endif %}
 
-        <title>{{ app_name }}</title>
+        <title>{{ get_configuration('pwa_app_name') }}</title>
     </head>
     <body>
         <div class="container">
@@ -32,13 +39,13 @@
             </div>
         </div>
 
-
         {% set route = app.request.attributes.get('_route')|default(null) %}
         {% set route_params = app.request.attributes.get('_route_params')|default({}) %}
-        {% if route %}
+
+        {% if on_app_page %}
             <nav class="navbar navbar-expand navbar-light bg-light fixed-bottom">
                 <div class="nav navbar-nav">
-                    <a class="nav-item nav-link {{ route == 'app_main' ? 'active' }}" href="{{ path('app_main', route_params) }}"><i class="fas fa-lock-open fa-fw"></i><span>{{ 'Code'|trans }}</span></a>
+                    <a class="nav-item nav-link {{ route == 'app_code' ? 'active' }}" href="{{ path('app_code', route_params) }}"><i class="fas fa-lock-open fa-fw"></i><span>{{ 'Code'|trans }}</span></a>
                     <a class="nav-item nav-link {{ route == 'app_card' ? 'active' }}" href="{{ path('app_card', route_params) }}"><i class="fas fa-id-card fa-fw"></i><span>{{ 'Card'|trans }}</span></a>
                     <a class="nav-item nav-link {{ route == 'app_about' ? 'active' }}" href="{{ path('app_about', route_params) }}"><i class="fas fa-info-circle fa-fw"></i><span>{{ 'About'|trans }}</span></a>
                 </div>
@@ -46,18 +53,20 @@
         {% endif %}
         <script src="{{ asset('/static/js/app.min.js') }}"></script>
 
-        <!-- Register serviceworker -->
-        <script>
-        if('serviceWorker' in navigator) {
-            if (navigator.serviceWorker.controller) {
-            console.log('Active service worker found, no need to register')
-            } else {
-            //Register the ServiceWorker
-            navigator.serviceWorker.register({{ path('app_serviceworker', route_params)|json_encode|raw }}).then(function(reg) {
-                console.log('Service worker has been registered for scope:'+ reg.scope);
-            });
-            }
-        }
-        </script>
+        {% if on_app_page %}
+            {# Register serviceworker #}
+            <script>
+                if('serviceWorker' in navigator) {
+                    if (navigator.serviceWorker.controller) {
+                        console.log('Active service worker found, no need to register')
+                    } else {
+                        //Register the ServiceWorker
+                        navigator.serviceWorker.register({{ path('app_serviceworker', route_params)|json_encode|raw }}).then(function(reg) {
+                            console.log('Service worker has been registered for scope:'+ reg.scope);
+                        });
+                    }
+                }
+            </script>
+        {% endif %}
     </body>
 </html>

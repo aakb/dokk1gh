@@ -39,7 +39,7 @@
     </div>
     <p class="mt-3 text-center text-muted">{{ 'It might take up to a few minutes before you recive the code depending on your network operator.'|trans }}</p>
     <div>
-        <a class="btn btn-primary btn-lg btn-block" href="{{ path('app_main', {'guest': guest.id}) }}">{{ 'Finish'|trans }}</a>
+        <a class="btn btn-primary btn-lg btn-block" href="{{ path('app_code', {'guest': guest.id}) }}">{{ 'Finish'|trans }}</a>
     </div>
 
 {% endblock %}

@@ -43,7 +43,7 @@ class GuestController extends AdminController
         $id = $this->request->query->get('id');
         $guest = $this->em->getRepository(Guest::class)->find($id);
 
-        return $this->redirectToRoute('app_main', [
+        return $this->redirectToRoute('app_code', [
             'guest' => $guest->getId(),
         ]);
     }

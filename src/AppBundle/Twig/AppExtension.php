@@ -11,27 +11,33 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Service\AeosHelper;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use AppBundle\Service\Configuration;
 
 class AppExtension extends \Twig_Extension
 {
     /** @var \AppBundle\Service\AeosHelper */
     private $aeosHelper;
 
-    /** @var \Symfony\Component\DependencyInjection\ContainerInterface */
-    private $container;
+    /** @var Configuration */
+    private $configuration;
 
-    public function __construct(AeosHelper $aeosHelper, ContainerInterface $container)
+    public function __construct(AeosHelper $aeosHelper, Configuration $configuration)
     {
         $this->aeosHelper = $aeosHelper;
-        $this->container = $container;
+        $this->configuration = $configuration;
     }
 
     public function getFunctions()
     {
         return [
             new \Twig_SimpleFunction('user_has_aeos_id', [$this->aeosHelper, 'userHasAeosId']),
-            new \Twig_SimpleFunction('get_app_parameter', [$this->container, 'getParameter']),
+            new \Twig_SimpleFunction('get_configuration', [$this->configuration, 'get']),
+            new \Twig_SimpleFunction('app_icon', [$this, 'getAppIcon']),
         ];
+    }
+
+    public function getAppIcon($size)
+    {
+        return $this->configuration->get('app_icons.'.$size.'x'.$size);
     }
 }
