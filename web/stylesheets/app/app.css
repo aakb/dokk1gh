@@ -5392,13 +5392,14 @@ a.text-dark:hover, a.text-dark:focus {
   .header .lead {
     font-size: 1rem; }
 
-.card.shadow {
-  -webkit-box-shadow: 0 0 16px rgba(0, 0, 0, 0.16);
-          box-shadow: 0 0 16px rgba(0, 0, 0, 0.16); }
-
-.guest-area .card-footer {
-  padding: 0;
-  background: #003764; }
+.card {
+  margin-bottom: 2em; }
+  .card.shadow {
+    -webkit-box-shadow: 0 0 16px rgba(0, 0, 0, 0.16);
+            box-shadow: 0 0 16px rgba(0, 0, 0, 0.16); }
+  .guest-area .card-footer {
+    padding: 0;
+    background: #003764; }
 
 .alert {
   word-wrap: break-word; }
