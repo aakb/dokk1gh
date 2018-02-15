@@ -20,6 +20,11 @@ parameters:
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
 
+    app_name: Gæstehåndtering
+    site_name: Gæstehåndtering
+    site_url: http://dokk1gh.vm
+    router.request_context.host: dokk1gh.vm
+
     mailer_name: GH
     mailer_email: gh@dokk1.gh.vm
     administrator_email: admin@dokk1.gh.vm
@@ -27,7 +32,7 @@ parameters:
     error_mail_sender: error@dokk1gh.vm
     error_mail_recipient: [error@dokk1gh.vm]
 
-    aoes_location: http://dokk1gh.vm/mock/aeosws
+    aoes_location: '%site_url%/mock/aeosws'
     aoes_username: ~
     aoes_password: ~
     aeos_timezone: Europe/Copenhagen
@@ -57,11 +62,6 @@ parameters:
     # 6: NOT_RETURNED
     # 8: CARRIER_REPLACEMENT
     aeos_block_reason: 2
-
-    app_name: Gæstehåndtering
-    site_name: Gæstehåndtering
-    site_url: http://dokk1gh.vm
-    router.request_context.host: dokk1gh.vm
 
     header_image_url: /images/logo.png
 
