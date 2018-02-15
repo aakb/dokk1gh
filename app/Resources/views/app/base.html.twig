@@ -2,8 +2,9 @@
 
 {% set route = app.request.attributes.get('_route')|default(null) %}
 {% set route_params = app.request.attributes.get('_route_params')|default({}) %}
-{% set on_app_page = route and route matches '/^app_(code|card|about)/' %}
-
+{% if not on_app_page is defined %}
+    {% set on_app_page = route and route matches '/^app_(code|card|about)/' %}
+{% endif %}
 <html lang="en">
     <head>
         <!-- Required meta tags -->
@@ -15,23 +16,24 @@
         <link rel="stylesheet" href="{{ asset('static/css/fa-svg-with-js.css') }}">
         <link rel="stylesheet" href="{{ asset('static/css/addtohomescreen.css') }}">
 
-        <!-- iOS webapp tricks -->
-        {% if is_ios() %}
-            <meta name="apple-mobile-web-app-title" content="{{ get_configuration('pwa_app_short_name') }}">
-            <meta name="apple-mobile-web-app-capable" content="yes">
-            <link rel="apple-touch-icon" href="{{ asset(app_icon(512)) }}">
-            {% for size in [152, 167, 180] %}
-                <link rel="apple-touch-icon" sizes="{{ size }}x{{ size }}" href="{{ asset(app_icon(size)) }}">
-            {% endfor %}
-            <link rel="apple-touch-startup-image" href="{{ asset('static/img/splashscreen.png') }}">
-            <script src="{{ asset('static/js/ios_stay_standalone.min.js') }}"></script>
-            <script src="{{ asset('static/js/addtohomescreen.min.js') }}"></script>
-            <script>
-                addToHomescreen();
-            </script>
-        {% endif %}
-
         {% if on_app_page %}
+            <!-- iOS webapp tricks -->
+            {% if is_ios() %}
+                <meta name="apple-mobile-web-app-title" content="{{ get_configuration('pwa_app_short_name') }}">
+                <meta name="apple-mobile-web-app-capable" content="yes">
+                <link rel="apple-touch-icon" href="{{ asset(app_icon(512)) }}">
+                {% for size in [152, 167, 180] %}
+                    <link rel="apple-touch-icon" sizes="{{ size }}x{{ size }}" href="{{ asset(app_icon(size)) }}">
+                {% endfor %}
+                <link rel="apple-touch-startup-image" media="(device-width: 375px)" href="{{ asset('static/img/splashscreen.png') }}">
+                <script src="{{ asset('static/js/ios_stay_standalone.min.js') }}"></script>
+                <script src="{{ asset('static/js/addtohomescreen.min.js') }}"></script>
+                <script>
+                    addToHomescreen();
+                </script>
+            {% endif %}
+
+            <!-- Webapp manifest -->
             {% if guest|default(null) %}
                 <link rel="manifest" href="{{ path('app_manifest', {guest: guest.id}) }}">
             {% endif %}
