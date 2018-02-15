@@ -50,14 +50,6 @@ services:
                     identifier_length: '%aeos_identifier_length%'
                     block_reason: '%aeos_block_reason%'
 
-    AppBundle\Service\AeosHelper:
-       arguments:
-           - '@AppBundle\Service\AeosService'
-           - '@security.token_storage'
-           - '@twig'
-           -
-              vistor_name_template: '%aeos_vistor_name_template%'
-
     AppBundle\Service\UserManager:
         arguments:
             - '@fos_user.util.password_updater'

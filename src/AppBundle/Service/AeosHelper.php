@@ -22,26 +22,21 @@ class AeosHelper
     /** @var \Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface */
     protected $tokenStorage;
 
-    /** @var \Twig_Environment */
-    protected $twig;
+    /** @var TwigHelper */
+    protected $twigHelper;
 
-    /** @var array */
+    /** @var Configuration */
     protected $configuration;
 
     public function __construct(
         AeosService $aeosService,
         TokenStorageInterface $tokenStorage,
-        \Twig_Environment $twig,
-        array $configuration
+        TwigHelper $twigHelper,
+        Configuration $configuration
     ) {
         $this->aeosService = $aeosService;
         $this->tokenStorage = $tokenStorage;
-        $this->twig = $twig;
-
-        if (!isset($configuration['vistor_name_template'])) {
-            $configuration['vistor_name_template']
-                = "Code #{{ code.id }}; {{ 'now'|date('Y-m-d H:i') }}; {{ code.createdBy.email }}";
-        }
+        $this->twigHelper = $twigHelper;
         $this->configuration = $configuration;
     }
 
@@ -71,12 +66,12 @@ class AeosHelper
 
         if (null === $visitorName) {
             try {
-                $visitorName = $this->twig
-                    ->createTemplate($this->configuration['vistor_name_template'])
-                    ->render([
-                                 'code' => $code,
-                                 'user' => $user,
-                             ]);
+                $template = $this->configuration->get('aeos_vistor_name_template');
+                $visitorName = $this->twigHelper
+                    ->renderTemplate($template, [
+                        'code' => $code,
+                        'user' => $user,
+                    ]);
             } catch (\Exception $e) {
             }
         }

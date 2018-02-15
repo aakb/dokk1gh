@@ -48,11 +48,6 @@ parameters:
     aeos_identifier_length: 8
     aeos_vistor_name_template: >-
         Code {{ code.id|default('–') }}; {{ 'now'|date('Y-m-d H:i') }}; {{ code.createdBy.email|default(user.email)|default('') }}
-        {%% if code.whitelist|default(false) %%}
-        {{ code.whitelist.name }};
-        {{ code.whitelist.email }};
-        {{ code.whitelist.phone }};
-        {%% endif %%}
 
     # BLock reason used when "deleting" an identifier
     # 2: LOST
