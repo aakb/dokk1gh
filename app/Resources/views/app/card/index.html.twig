@@ -27,7 +27,13 @@
             {% endif %}
         </div>
         <div class="card-footer">
-            <small class="text-muted">{{ 'Valid from'|trans }}: {{ guest.startTime|date(format_date) }} {{ 'to'|trans }} {{ guest.endTime|date(format_date) }}</small>
+            <small class="text-muted">
+                {{
+                    'Valid from %start_time% to %end_time%'|trans({
+                    '%start_time%': guest.startTime|date(format_date),
+                    '%end_time%': guest.endTime|date(format_date)})
+                }}
+            </small>
         </div>
     </div>
     <table class="table table-striped">
