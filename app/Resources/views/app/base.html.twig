@@ -21,11 +21,13 @@
             {% if is_ios() %}
                 <meta name="apple-mobile-web-app-title" content="{{ get_configuration('pwa_app_short_name') }}">
                 <meta name="apple-mobile-web-app-capable" content="yes">
+                <meta name="apple-mobile-web-app-status-bar-style" content="default">
                 <link rel="apple-touch-icon" href="{{ asset(app_icon(512)) }}">
                 {% for size in [152, 167, 180] %}
                     <link rel="apple-touch-icon" sizes="{{ size }}x{{ size }}" href="{{ asset(app_icon(size)) }}">
                 {% endfor %}
                 <link rel="apple-touch-startup-image" media="(device-width: 375px)" href="{{ asset('static/img/splashscreen.png') }}">
+                <link rel="apple-touch-startup-image" media="(device-width: 375px) and (-webkit-device-pixel-ratio: 2)" href="{{ asset('static/img/splashscreen@2x.png') }}">
                 <script src="{{ asset('static/js/ios_stay_standalone.min.js') }}"></script>
                 <script src="{{ asset('static/js/addtohomescreen.min.js') }}"></script>
                 <script>
