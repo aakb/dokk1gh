@@ -23,6 +23,15 @@ imgDest = 'static/img',
 fontFiles = 'fonts/**/*.*',
 fontDest = 'static/fonts';
 
+// Collect static css files
+gulp.task('static-css', function() {
+    return gulp.src(
+        'node_modules/add-to-homescreen/dist/style/addtohomescreen.css'
+    )
+    .pipe(gulp.dest('static/css/'))
+});
+
+
 /* helper functions */
 // handling errors
 var onError = function (err) {
@@ -80,7 +89,8 @@ gulp.task('scripts', function() {
         scriptFiles ,
         'node_modules/jquery/dist/jquery.js',
         'node_modules/popper.js/dist/umd/popper.js',
-        'node_modules/bootstrap/dist/js/bootstrap.js'
+        'node_modules/bootstrap/dist/js/bootstrap.js',
+        'node_modules/add-to-homescreen/dist/addtohomescreen.min.js'
     ])
     .pipe(gulpif(jsMinify, uglify()))
     .pipe(gulpif(jsMinify, rename({ suffix: '.min' })))
@@ -135,7 +145,7 @@ gulp.task('browsersync', function() {
 
 // Default task when running gulp
 gulp.task('default', function (callback) {
-    runsequence(['clean', 'fonts', 'icons', 'scripts', 'app-scripts', 'images', 'scss'],
+    runsequence(['clean', 'fonts', 'icons', 'scripts', 'app-scripts', 'images', 'scss', 'static-css'],
     callback
 )
 });
