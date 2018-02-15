@@ -10,8 +10,8 @@
 
 namespace AppBundle\Configuration;
 
-use JavierEguiluz\Bundle\EasyAdminBundle\Cache\CacheManager;
-use JavierEguiluz\Bundle\EasyAdminBundle\Configuration\ConfigManager;
+use EasyCorp\Bundle\EasyAdminBundle\Cache\CacheManager;
+use EasyCorp\Bundle\EasyAdminBundle\Configuration\ConfigManager;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;

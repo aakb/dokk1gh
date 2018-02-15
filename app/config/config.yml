@@ -127,7 +127,6 @@ fos_user:
     resetting:
         email:
             template: Emails/password_resetting.email.twig
-    resetting:
         token_ttl: 0
 
 fos_rest:
@@ -152,7 +151,7 @@ nelmio_api_doc:
             title: "%api_title%"
             description: "%api_description%"
             version: 1.0.0
-    routes:
+    areas:
         path_patterns: # an array of regexps
             - ^/api
 

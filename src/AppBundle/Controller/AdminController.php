@@ -11,8 +11,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Service\TemplateManager;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
 use Gedmo\Blameable\Blameable;
-use JavierEguiluz\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class AdminController extends BaseAdminController

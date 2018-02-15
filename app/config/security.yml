@@ -27,6 +27,7 @@ security:
             provider: api_key_user_provider
             # @see https://symfony.com/doc/current/reference/configuration/security.html#firewall-context
             context: primary_auth
+            logout_on_user_change: true
 
         mock:
             pattern: ^/mock
@@ -41,6 +42,7 @@ security:
                 csrf_token_generator: security.csrf.token_manager
             # @see https://symfony.com/doc/current/reference/configuration/security.html#firewall-context
             context: primary_auth
+            logout_on_user_change: true
 
             logout:       true
             anonymous:    true

@@ -32,7 +32,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
+            new EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new FOS\RestBundle\FOSRestBundle(),

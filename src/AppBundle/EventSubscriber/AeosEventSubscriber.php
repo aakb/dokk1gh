@@ -13,7 +13,7 @@ namespace AppBundle\EventSubscriber;
 use AppBundle\Entity\Template;
 use AppBundle\Entity\User;
 use AppBundle\Service\AeosService;
-use JavierEguiluz\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
+use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
 
