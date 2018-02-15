@@ -56,17 +56,18 @@ class GuestService
     /**
      * Send app url to user via sms and email.
      *
-     * @param Guest $guest
+     * @param Guest  $guest
+     * @param string $appUrl
      *
      * @return bool
      */
-    public function sendApp(Guest $guest)
+    public function sendApp(Guest $guest, $appUrl)
     {
         if (null !== $guest->getPhone()) {
-            $this->smsHelper->sendApp($guest);
+            $this->smsHelper->sendApp($guest, $appUrl);
         }
         if (null !== $guest->getEmail()) {
-            $this->mailHelper->sendApp($guest);
+            $this->mailHelper->sendApp($guest, $appUrl);
         }
 
         return true;

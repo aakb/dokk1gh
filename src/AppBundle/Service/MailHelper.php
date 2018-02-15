@@ -41,7 +41,7 @@ class MailHelper
         $this->configuration = $configuration;
     }
 
-    public function sendApp(Guest $guest)
+    public function sendApp(Guest $guest, $appUrl)
     {
         $fromEmail = $this->configuration->get('guest_app_email_sender_email');
         $fromName = $this->configuration->get('guest_app_email_sender_name');
@@ -58,6 +58,7 @@ class MailHelper
             $this->configuration->get('guest_app_email_body_template'),
             [
                 'guest' => $guest,
+                'app_url' => $appUrl,
             ]
         );
 

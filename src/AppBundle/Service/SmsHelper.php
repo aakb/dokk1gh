@@ -42,7 +42,7 @@ class SmsHelper
         $this->configuration = $configuration;
     }
 
-    public function sendApp(Guest $guest)
+    public function sendApp(Guest $guest, $appUrl)
     {
         $recipient = $guest->getPhone();
         $template =
@@ -50,6 +50,7 @@ class SmsHelper
             $this->configuration->get('guest_app_sms_body_template'),
             [
                 'guest' => $guest,
+                'app_url' => $appUrl,
             ]
         );
         $this->smsService->send($recipient, $message);

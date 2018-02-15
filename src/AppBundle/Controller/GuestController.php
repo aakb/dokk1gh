@@ -13,6 +13,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Guest;
 use AppBundle\Service\GuestService;
 use AppBundle\Service\TemplateManager;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class GuestController extends AdminController
@@ -52,8 +53,8 @@ class GuestController extends AdminController
     {
         $id = $this->request->query->get('id');
         $guest = $this->em->getRepository(Guest::class)->find($id);
-
-        if ($this->guestService->sendApp($guest)) {
+        $appUrl = $this->generateUrl('app_code', ['guest' => $guest->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
+        if ($this->guestService->sendApp($guest, $appUrl)) {
             $this->addFlash('info', 'App sent');
         }
 

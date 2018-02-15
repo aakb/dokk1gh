@@ -162,13 +162,17 @@ parameters:
     guest_app_email_subject_template: >-
         Gæstehåndtering – App'en
     guest_app_email_body_template: |-
-        Du kan åbne din helt personlige app på: {{ url('app_main', {guest: guest.id}) }}.
+        <p>
+        Du kan åbne din helt personlige app på: <a href="{{ app_url }}">{{ app_url }}</a>.
+        </p>
 
-        Venlig hilsen
+        <p>
+        Venlig hilsen<br/>
         {{ site_name }}
+        </p>
 
     guest_app_sms_body_template: |-
-        Du kan åbne din helt personlige app på: {{ url('app_main', {guest: guest.id}) }}.
+        Du kan åbne din helt personlige app på: {{ app_url }}.
 
         Venlig hilsen
         {{ site_name }}
