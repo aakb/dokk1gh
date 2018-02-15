@@ -55,9 +55,7 @@ class AppController extends Controller
     public function codeAction(Guest $guest)
     {
         if (null === $guest->getActivatedAt()) {
-            return $this->redirectToRoute('app_guide', [
-                'guest' => $guest->getId(),
-            ]);
+            return $this->guideAction($guest);
         }
 
         $isValid = $this->guestService->isValid($guest);
