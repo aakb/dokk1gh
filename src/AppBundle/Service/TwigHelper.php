@@ -26,4 +26,9 @@ class TwigHelper
             ->createTemplate($template)
             ->render($context);
     }
+
+    public function load($name)
+    {
+        return $this->twig->load($name);
+    }
 }

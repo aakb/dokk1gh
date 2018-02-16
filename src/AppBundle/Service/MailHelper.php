@@ -47,14 +47,13 @@ class MailHelper
         $fromName = $this->configuration->get('guest_app_email_sender_name');
         $from = [$fromEmail => $fromName];
         $recipient = $guest->getEmail();
-        $template =
         $subject = $this->twigHelper->renderTemplate(
             $this->configuration->get('guest_app_email_subject_template'),
             [
                 'guest' => $guest,
             ]
         );
-        $body = $this->twigHelper->renderTemplate(
+        $bodyHtml = $this->twigHelper->renderTemplate(
             $this->configuration->get('guest_app_email_body_template'),
             [
                 'guest' => $guest,
@@ -62,14 +61,24 @@ class MailHelper
             ]
         );
 
+        $template = $this->twigHelper->load('app/email/app.html.twig');
+        $context = [
+            'app_url' => $appUrl,
+            'guest' => $guest,
+            'subject' => $subject,
+            'body_html' => $bodyHtml,
+        ];
+        $subject = $template->renderBlock('subject', $context);
+        $bodyHtml = $template->renderBlock('body_html', $context);
+
         $message = (new \Swift_Message($subject))
             ->setFrom($from)
             ->setTo($recipient)
-            ->setBody($body, 'text/html');
+            ->setBody($bodyHtml, 'text/html');
 
         $this->mailer->send($message);
         $this->actionLogger->log($guest, self::MAIL_SENT, [
-            'message' => $body,
+            'message' => $bodyHtml,
             'guest' => $guest,
         ]);
     }

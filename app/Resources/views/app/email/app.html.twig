@@ -1,0 +1,9 @@
+{% block subject %}
+{%- autoescape false -%}
+{{ subject }}
+{%- endautoescape -%}
+{% endblock %}
+
+{% block body_html %}
+{% include 'app/email/app.body_html.html.twig' %}
+{% endblock %}

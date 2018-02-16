@@ -1,0 +1,15 @@
+{% extends ':Emails:layout.html.twig' %}
+
+{% block email_title %}{{ app_name }}{% endblock %}
+
+{% block header '' %}
+{% block footer '' %}
+
+{% set button = {
+    url: app_url,
+    text: 'Open app'|trans
+} %}
+
+{% block body %}
+    {{ body_html|raw }}
+{% endblock %}
