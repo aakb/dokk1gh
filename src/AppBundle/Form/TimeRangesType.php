@@ -112,8 +112,8 @@ class TimeRangesType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
-        return 'appbundle_time_ranges';
+        return 'app_time_ranges';
     }
 }

@@ -17,3 +17,55 @@
     {{ parent() }}
   {% endif %}
 {% endblock %}
+
+{# @param int n: ISO-8601 numeric representation of the day of the week (1 (for Monday) through 7 (for Sunday)) #}
+{% macro week_day_name(n) %}
+    {# The year 2001 stared on a Monday #}
+    {{ ('2001-01-' ~ n)|date('l')|trans }}
+{% endmacro %}
+
+{% block app_time_ranges_widget %}
+    {% from _self import week_day_name %}
+
+    <table id="time-ranges">
+        {% for day in 1..7 %}
+            <tr>
+                <td><label class="control-label" for="time-range-handle-{{ day }}">{{ week_day_name(day)|trans }}</label></td>
+                <td><input type="checkbox" id="time-range-handle-{{ day }}" /></td>
+                <td>
+                    {{ form_widget(form['start_time_' ~ day]) }}
+                </td>
+                <td>
+                    {{ form_widget(form['end_time_' ~ day]) }}
+                </td>
+                <td>
+                    {{ form_errors(form['start_time_' ~ day]) }}
+                    {{ form_errors(form['end_time_' ~ day]) }}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    {{ form_row(form.message) }}
+
+    <script>(function($) {
+            $(function() {
+                $('#time-ranges [type="checkbox"]')
+                    .on('change', function() {
+                        var controls = $(this).closest('tr').find('select');
+                        controls
+                            .prop('disabled', !$(this).prop('checked'))
+                        // .toggle($(this).prop('checked'))
+                        ;
+                    })
+                    .each(function() {
+                        var controls = $(this).closest('tr').find('select');
+                        ;;; console.log(controls);
+                        $(this)
+                            .prop('checked', $(controls[1]).val() || $(controls[2]).val())
+                            .trigger('change');
+                    })
+                ;
+            });
+        }(jQuery))</script>
+{% endblock %}
