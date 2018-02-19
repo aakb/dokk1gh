@@ -31,6 +31,7 @@
         "friendsofsymfony/user-bundle": "^2.0",
         "guzzlehttp/guzzle": "^6.3",
         "incenteev/composer-parameter-handler": "^2.1",
+        "itk-dev/config-bundle": "^1.0",
         "itk-dev/database-bundle": "^1.0",
         "itk-dev/monolog-db-bundle": "^1.0",
         "javiereguiluz/easyadmin-bundle": "^1.17",
@@ -62,6 +63,7 @@
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Ivory\\CKEditorBundle\\Composer\\CKEditorScriptHandler::install",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
@@ -113,6 +115,13 @@
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
         },
-        "branch-alias": null
+        "branch-alias": null,
+        "ckeditor-clear": "drop"
+    },
+    "repositories": {
+        "itk-dev/config-bundle": {
+            "type": "vcs",
+            "url": "https://github.com/itk-dev/config-bundle"
+        }
     }
 }

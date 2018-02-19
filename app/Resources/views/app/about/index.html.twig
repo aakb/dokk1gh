@@ -2,17 +2,14 @@
 
 {% block content %}
     <div class="header">
-        <h1>{{ 'About'|trans }}</h1>
-        <p class="lead">{{ 'About this app'|trans }}</p>
+        <h1>{{ get_configuration('app_about_header', 'About'|trans) }}</h1>
+        {% if get_configuration('app_about_lead')|default(null) %}
+            <p class="lead">{{ get_configuration('app_about_lead') }}</p>
+        {% endif %}
     </div>
     <div class="row about">
         <div class="col-sm-8 offset-sm-2 mb-3">
-            <h2>How to use</h2>
-            <p>Maecenas tincidunt erat nec mauris accumsan aliquet. Morbi imperdiet, mi sed aliquet pharetra, massa turpis mattis turpis, nec auctor nulla ipsum nec metus. Suspendisse non augue turpis. Etiam eget nisl iaculis, rutrum sapien ac, dignissim sapien. Aliquam congue dui id diam egestas vestibulum.</p>
-            <h2>Privacy (GDPR)</h2>
-            <p>Duis euismod aliquet ligula non lobortis. Phasellus euismod, erat non pretium ornare, sapien ex ultrices ipsum, id commodo sapien mi id diam. Sed faucibus dapibus enim, non dapibus arcu vestibulum ac. Suspendisse aliquet turpis erat, at mollis nisi vulputate non. Curabitur ut enim tortor. Aliquam maximus augue ipsum, id mattis nunc dictum sit amet. Mauris eu lacus in mi tempor lobortis.</p>
-            <p>Donec sodales vel mauris interdum tempor. Nulla eleifend velit et finibus ultricies. Donec feugiat tortor sit amet fermentum tincidunt. Vestibulum scelerisque, est quis laoreet posuere, diam mi tincidunt est, vel maximus nunc ex bibendum lorem. Quisque in diam eget metus scelerisque consequat sit amet eget magna. Suspendisse potenti. Donec gravida ante augue, condimentum lacinia justo iaculis vitae. Proin bibendum enim non odio fringilla aliquam. Curabitur tincidunt luctus tincidunt. Pellentesque pellentesque ullamcorper mattis.</p>
-            <p>In hac habitasse platea dictumst. Donec id ex at ipsum placerat egestas ac nec nunc. Phasellus feugiat lectus a odio sollicitudin porttitor. Sed quis sem at nibh malesuada fringilla eget in urna. Pellentesque id risus urna. Vestibulum vel leo lectus. Donec vulputate sem est, ac dignissim felis porta a. Donec aliquet, turpis faucibus hendrerit interdum, justo lacus venenatis nisl, vel sagittis nisi diam at turpis. Curabitur fringilla ut metus in fringilla. Vivamus quis lorem ut felis fermentum efficitur.</p>
+            {{ get_configuration('app_about_content')|raw }}
         </div>
     </div>
 {% endblock %}

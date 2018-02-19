@@ -79,6 +79,7 @@ doctrine:
                 user: '%database_user%'
                 password: '%database_password%'
                 charset: UTF8
+                schema_filter: ~^(?!craue_config_setting)~
             mocks:
                 driver: pdo_sqlite
                 path: '%kernel.project_dir%/var/data/mocks.sqlite'
@@ -95,6 +96,7 @@ doctrine:
                     AppBundle: ~
                     ApiBundle: ~
                     ActionLogBundle: ~
+                    ItkDevConfigBundle: ~
                 filters:
                     softdeleteable:
                         class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
@@ -169,3 +171,6 @@ monolog:
             channels: ['db']
             type: service
             id: itk_dev.monolog.db_handler
+
+craue_config:
+    entity_name: ItkDev\ConfigBundle\Entity\Setting

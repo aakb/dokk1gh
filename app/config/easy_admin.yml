@@ -18,6 +18,8 @@ easy_admin:
               roles: [ROLE_ADMIN]
             - entity: Template
               roles: [ROLE_ADMIN]
+            - entity: Setting
+              roles: [ROLE_CONFIG_ADMIN]
 
     formats:
         datetime: '%format_datetime%'
@@ -177,6 +179,7 @@ easy_admin:
                           choices: &role_list
                               ROLE_USER: ROLE_USER
                               ROLE_ADMIN: ROLE_ADMIN
+                              ROLE_CONFIG_ADMIN: ROLE_CONFIG_ADMIN
                     - property: templates
                       type_options:
                           expanded: true
@@ -226,3 +229,28 @@ easy_admin:
                     - property: aeosId
                       type_options:
                           required: false
+
+        Setting:
+            roles: [ROLE_CONFIG_ADMIN]
+            controller: ItkDev\ConfigBundle\Controller\SettingController
+            class: ItkDev\ConfigBundle\Entity\Setting
+            disabled_actions: [new, delete]
+            list:
+                fields:
+                    # - property: section
+                    - property: name
+                    - property: description
+                    # - property: type
+                    # - property: formType
+                    - property: value
+                      label: Value
+                      template: '@ItkDevConfig/easy_admin/Setting/display_value.html.twig'
+
+            edit:
+                fields:
+                    - property: name
+                      type_options:
+                          disabled: true
+                    - property: description
+                      type_options:
+                          disabled: true
