@@ -14,6 +14,10 @@
         <p class="lead">{{ 'Press the area in Dokk1 you wish to access'|trans }}</p>
     </div>
 
+    {% if not guest_can_request_code %}
+        <div class="alert alert-warning">{{ 'You are not allowed to request access right now'|trans }}</div>
+    {% endif %}
+
     {% if guest_is_valid %}
         {% for template in guest.templates %}
             {% for type in ['danger', 'warning', 'success', 'info'] %}
@@ -39,7 +43,7 @@
                             <button type="submit" class="btn btn-primary btn-block btn-lg">{{ 'Request access'|trans }}</button>
                         </form>
                     {% else %}
-                        <div class="alert alert-warning">{{ 'You are not allowed to request access right now'|trans }}</div>
+                        <button class="btn btn-secondary btn-block btn-lg" disabled>{{ 'You are not allowed to request access right now'|trans }}</button>
                     {% endif %}
                 </div>
             </div>
