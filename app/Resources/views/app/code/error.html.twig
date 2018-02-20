@@ -1,0 +1,19 @@
+{% extends 'app/base.html.twig' %}
+
+{#
+ # @param guest: The Guest object.
+ # @param message: The error message.
+ #}
+{% block content %}
+    <div class="header">
+        <h1>{{ 'Error generating code'|trans }}</h1>
+    </div>
+
+    <div class="alert alert-danger">
+        {{ message|trans }}
+    </div>
+
+    <div>
+        <a class="btn btn-primary btn-lg btn-block" href="{{ path('app_code', {'guest': guest.id}) }}">{{ 'OK'|trans }}</a>
+    </div>
+{% endblock %}

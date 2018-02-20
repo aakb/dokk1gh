@@ -14,6 +14,10 @@
         <p class="lead">{{ 'Press the area in Dokk1 you wish to access'|trans }}</p>
     </div>
 
+    {% if not guest_can_request_code %}
+        <div class="alert alert-warning">{{ 'You are not allowed to request access right now'|trans }}</div>
+    {% endif %}
+
     {% if guest_is_valid %}
         {% for template in guest.templates %}
             {% for type in ['danger', 'warning', 'success', 'info'] %}
@@ -39,7 +43,7 @@
                             <button type="submit" class="btn btn-primary btn-block btn-lg">{{ 'Request access'|trans }}</button>
                         </form>
                     {% else %}
-                        <div class="alert alert-warning">{{ 'You are not allowed to request access right now'|trans }}</div>
+                        <button class="btn btn-secondary btn-block btn-lg" disabled>{{ 'You are not allowed to request access right now'|trans }}</button>
                     {% endif %}
                 </div>
             </div>
@@ -47,4 +51,42 @@
     {% else %}
         <div class="alert alert-warning">{{ 'Your guest access is not valid'|trans }}</div>
     {% endif %}
+{% endblock %}
+
+{% block body_javascript %}
+
+    <div class="modal fade" id="saving" tabindex="-1" role="dialog" aria-labelledby="savingcode" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="spinner">
+                        <div class="bounce1"></div>
+                        <div class="bounce2"></div>
+                        <div class="bounce3"></div>
+                    </div>
+                    <p>{{ "Please wait while the system generates the key - it can take up to a minute"|trans }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ parent() }}
+
+    <script>$(function() {
+            $('button[type="submit"]').on('click', function() {
+                $('.wrapper').addClass('blur');
+                $('#saving').modal( {
+                    backdrop: 'static',
+                    keyboard: false
+                });
+
+                // @see https://stackoverflow.com/questions/41063074/bootstrap-modal-not-showing-on-submit-button-click-on-ios
+                event.preventDefault();
+
+                setTimeout(function () {
+                    $('form').submit();
+                }, 500);
+            });
+        });</script>
+
 {% endblock %}
