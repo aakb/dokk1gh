@@ -133,6 +133,8 @@ class Guest
     public function setEnabled(bool $enabled)
     {
         $this->enabled = $enabled;
+
+        return $this;
     }
 
     /**

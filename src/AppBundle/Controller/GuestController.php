@@ -33,10 +33,7 @@ class GuestController extends AdminController
 
     public function createNewGuestEntity()
     {
-        $guest = new Guest();
-        $guest->setEnabled(true);
-
-        return $guest;
+        return $this->guestService->createNewGuest();
     }
 
     public function showAppAction()

@@ -54,6 +54,22 @@ class GuestService
     }
 
     /**
+     * Create a new guest with default values.
+     *
+     * @return Guest
+     */
+    public function createNewGuest()
+    {
+        $guest = new Guest();
+        $guest
+            ->setEnabled(true)
+            ->setStartTime(new \DateTime($this->configuration->get('guest_default_startTime')))
+            ->setEndTime(new \DateTime($this->configuration->get('guest_default_endTime')));
+
+        return $guest;
+    }
+
+    /**
      * Send app url to user via sms and email.
      *
      * @param Guest  $guest
