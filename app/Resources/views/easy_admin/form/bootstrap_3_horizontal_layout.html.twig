@@ -27,23 +27,28 @@
 {% block app_time_ranges_widget %}
     {% from _self import week_day_name %}
 
-    <table id="time-ranges">
-        {% for day in 1..7 %}
-            <tr>
-                <td><label class="control-label" for="time-range-handle-{{ day }}">{{ week_day_name(day)|trans }}</label></td>
-                <td><input type="checkbox" id="time-range-handle-{{ day }}" /></td>
-                <td>
-                    {{ form_widget(form['start_time_' ~ day]) }}
-                </td>
-                <td>
-                    {{ form_widget(form['end_time_' ~ day]) }}
-                </td>
-                <td>
-                    {{ form_errors(form['start_time_' ~ day]) }}
-                    {{ form_errors(form['end_time_' ~ day]) }}
-                </td>
-            </tr>
-        {% endfor %}
+    <table id="time-ranges" class="table table-striped">
+        <thead class="">
+            <tr><td></td><th>{{ 'Activate'|trans }}</th><th>{{ 'Start time'|trans }}</th><th>{{ 'End time'|trans }}</th></tr>
+        </thead>
+        <tbody>
+            {% for day in 1..7 %}
+                <tr>
+                    <td><label class="control-label" for="time-range-handle-{{ day }}">{{ week_day_name(day)|trans }}</label></td>
+                    <td><input type="checkbox" id="time-range-handle-{{ day }}" /></td>
+                    <td>
+                        {{ form_widget(form['start_time_' ~ day]) }}
+                    </td>
+                    <td>
+                        {{ form_widget(form['end_time_' ~ day]) }}
+                    </td>
+                    <td>
+                        {{ form_errors(form['start_time_' ~ day]) }}
+                        {{ form_errors(form['end_time_' ~ day]) }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
     </table>
 
     {{ form_row(form.message) }}
