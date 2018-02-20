@@ -51,23 +51,50 @@
         </tbody>
     </table>
 
+    {# IMPORTANT: Don't delete these two form rows! #}
     {{ form_row(form.message) }}
+    {{ form_row(form.default_values) }}
 
     <script>(function($) {
             $(function() {
+                var defaultValues = (function() {
+                    var value = $('#' + {{ (id ~ '_default_values')|json_encode|raw }}).val();
+                    return value ? JSON.parse(value) : null;
+                }());
+
                 $('#time-ranges [type="checkbox"]')
                     .on('change', function() {
                         var controls = $(this).closest('tr').find('select');
-                        controls
-                            .prop('disabled', !$(this).prop('checked'))
-                        // .toggle($(this).prop('checked'))
+                        var checked = $(this).prop('checked');
+                        var day = $(this).data('day');
+                        if (checked) {
+                            controls.each(function(index) {
+                                if (!$(this).val()) {
+                                    // Restore selected value or use default.
+                                    var value = $(this).data('last_selected');
+                                    if (!value) {
+                                        if (typeof defaultValues[day] !== 'undefined' && $.isArray(defaultValues[day]) && index < defaultValues[day].length) {
+                                            value = defaultValues[day][index];
+                                        }
+                                    }
+                                    $(this).val(value);
+                                }
+                            });
+                        } else {
+                            // Reset choices, but remember selected value.
+                            controls.each(function(index) {
+                                $(this).data('last_selected', $(this).val());
+                                $(this).val('');
+                            });
+                        }
+                        controls.prop('disabled', !checked)
                         ;
                     })
-                    .each(function() {
+                    .each(function(index) {
                         var controls = $(this).closest('tr').find('select');
-                        ;;; console.log(controls);
                         $(this)
-                            .prop('checked', $(controls[1]).val() || $(controls[2]).val())
+                            .data('day', index+1)
+                            .prop('checked', $(controls[0]).val() || $(controls[1]).val())
                             .trigger('change');
                     })
                 ;

@@ -47,11 +47,16 @@ Created at: Oprettet
 Created by: Oprettet af
 Updated at: Opdateret
 Updated by: Opdateret af
+Activated at: Aktiveret
+Activate: Aktiver
 Email: E-mailadresse
 Aeos id: AEOS-id
 Change password: Skift adgangskode
 Start time: Starttidspunkt
 End time: Sluttidspunkt
+Start date: Startdato
+End date: Slutdato
+Time ranges: Tidspunkter
 Date: Dato
 Period: Tidsrum
 Api key: Api-nøgle
