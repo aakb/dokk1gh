@@ -124,3 +124,9 @@ Saturday: Lørdag
 Sunday: Søndag
 
 Open app: Åbn app
+
+SMS sent to phone %guest_phone%: Sms sendt til %guest_phone%
+
+You are not allowed to request access right now: Du har ikke adgang lige nu
+Error generating code: Fejl under generering af kode
+Guest cannot request code right now: Du har ikke adgang lige nu
