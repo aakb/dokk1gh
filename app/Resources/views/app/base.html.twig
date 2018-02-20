@@ -44,42 +44,46 @@
         <title>{{ get_configuration('pwa_app_name') }}</title>
     </head>
     <body>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    {% block content %}{% endblock %}
+        <div class="wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        {% block content %}{% endblock %}
+                    </div>
                 </div>
             </div>
+
+            {% set route = app.request.attributes.get('_route')|default(null) %}
+            {% set route_params = app.request.attributes.get('_route_params')|default({}) %}
+
+            {% if on_app_page %}
+                <nav class="navbar navbar-expand navbar-light bg-light fixed-bottom">
+                    <div class="nav navbar-nav">
+                        <a class="nav-item nav-link {{ route == 'app_code' ? 'active' }}" href="{{ path('app_code', route_params) }}"><i class="fas fa-lock-open fa-fw"></i><span>{{ 'Code'|trans }}</span></a>
+                        <a class="nav-item nav-link {{ route == 'app_card' ? 'active' }}" href="{{ path('app_card', route_params) }}"><i class="fas fa-id-card fa-fw"></i><span>{{ 'Card'|trans }}</span></a>
+                        <a class="nav-item nav-link {{ route == 'app_about' ? 'active' }}" href="{{ path('app_about', route_params) }}"><i class="fas fa-info-circle fa-fw"></i><span>{{ 'About'|trans }}</span></a>
+                    </div>
+                </nav>
+            {% endif %}
+            <script src="{{ asset('/static/js/app.min.js') }}"></script>
+
+            {% if on_app_page %}
+                {# Register serviceworker #}
+                <script>
+                    if('serviceWorker' in navigator) {
+                        if (navigator.serviceWorker.controller) {
+                            console.log('Active service worker found, no need to register')
+                        } else {
+                            //Register the ServiceWorker
+                            navigator.serviceWorker.register({{ path('app_serviceworker', route_params)|json_encode|raw }}).then(function(reg) {
+                                console.log('Service worker has been registered for scope:'+ reg.scope);
+                            });
+                        }
+                    }
+                </script>
+            {% endif %}
         </div>
 
-        {% set route = app.request.attributes.get('_route')|default(null) %}
-        {% set route_params = app.request.attributes.get('_route_params')|default({}) %}
-
-        {% if on_app_page %}
-            <nav class="navbar navbar-expand navbar-light bg-light fixed-bottom">
-                <div class="nav navbar-nav">
-                    <a class="nav-item nav-link {{ route == 'app_code' ? 'active' }}" href="{{ path('app_code', route_params) }}"><i class="fas fa-lock-open fa-fw"></i><span>{{ 'Code'|trans }}</span></a>
-                    <a class="nav-item nav-link {{ route == 'app_card' ? 'active' }}" href="{{ path('app_card', route_params) }}"><i class="fas fa-id-card fa-fw"></i><span>{{ 'Card'|trans }}</span></a>
-                    <a class="nav-item nav-link {{ route == 'app_about' ? 'active' }}" href="{{ path('app_about', route_params) }}"><i class="fas fa-info-circle fa-fw"></i><span>{{ 'About'|trans }}</span></a>
-                </div>
-            </nav>
-        {% endif %}
-        <script src="{{ asset('/static/js/app.min.js') }}"></script>
-
-        {% if on_app_page %}
-            {# Register serviceworker #}
-            <script>
-                if('serviceWorker' in navigator) {
-                    if (navigator.serviceWorker.controller) {
-                        console.log('Active service worker found, no need to register')
-                    } else {
-                        //Register the ServiceWorker
-                        navigator.serviceWorker.register({{ path('app_serviceworker', route_params)|json_encode|raw }}).then(function(reg) {
-                            console.log('Service worker has been registered for scope:'+ reg.scope);
-                        });
-                    }
-                }
-            </script>
-        {% endif %}
+        {% block body_javascript %}{% endblock %}
     </body>
 </html>
