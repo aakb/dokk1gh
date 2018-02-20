@@ -152,6 +152,21 @@ parameters:
     sms_gateway_password: test
     sms_gateway_default_countrycode: '+45'
 
+    guest_timeRanges_min: '06:00'
+    guest_timeRanges_max: '22:00'
+    guest_timeRanges_step: '30M'
+
+    guest_default_startTime: 'today'
+    guest_default_endTime: 'today + 7 days'
+    guest_default_timeRanges:
+        1: ['06:00', '15:00']
+        2: ['06:00', '15:00']
+        3: ['06:00', '15:00']
+        4: ['06:00', '15:00']
+        5: ['06:00', '15:00']
+        6: ['06:00', '15:00']
+        7: ['06:00', '15:00']
+
     guest_app_email_sender_email: '%mailer_email%'
     guest_app_email_sender_name: '%mailer_name%'
     guest_app_email_subject_template: >-
