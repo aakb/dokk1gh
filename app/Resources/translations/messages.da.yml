@@ -47,11 +47,16 @@ Created at: Oprettet
 Created by: Oprettet af
 Updated at: Opdateret
 Updated by: Opdateret af
+Activated at: Aktiveret
+Activate: Aktiver
 Email: E-mailadresse
 Aeos id: AEOS-id
 Change password: Skift adgangskode
 Start time: Starttidspunkt
 End time: Sluttidspunkt
+Start date: Startdato
+End date: Slutdato
+Time ranges: Tidspunkter
 Date: Dato
 Period: Tidsrum
 Api key: Api-nøgle
@@ -124,3 +129,10 @@ Saturday: Lørdag
 Sunday: Søndag
 
 Open app: Åbn app
+
+SMS sent to phone %guest_phone%: Sms sendt til %guest_phone%
+
+You are not allowed to request access right now: Du har ikke adgang lige nu
+Error generating code: Fejl under generering af kode
+Guest cannot request code right now: Du har ikke adgang lige nu
+Guest does not have access to template: Du har ikke adgang til det valgte område

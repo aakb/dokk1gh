@@ -93,7 +93,11 @@ easy_admin:
                     - property: templates
                       template: templates.html.twig
                     - property: startTime
+                      type: date
+                      label: Start date
                     - property: endTime
+                      type: date
+                      label: End date
                     - property: createdAt
                       template: datetime.html.twig
                     - property: activatedAt
@@ -120,6 +124,7 @@ easy_admin:
                       type: date
                     - property: timeRanges
                       type: AppBundle\Form\TimeRangesType
+                      label: 'Access times'
 
             edit:
                 fields:
@@ -141,6 +146,7 @@ easy_admin:
                       type: date
                     - property: timeRanges
                       type: AppBundle\Form\TimeRangesType
+                      label: 'Access times'
 
         User:
             controller: AppBundle\Controller\UserController

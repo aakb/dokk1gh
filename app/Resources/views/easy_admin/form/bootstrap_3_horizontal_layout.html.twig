@@ -17,3 +17,87 @@
     {{ parent() }}
   {% endif %}
 {% endblock %}
+
+{# @param int n: ISO-8601 numeric representation of the day of the week (1 (for Monday) through 7 (for Sunday)) #}
+{% macro week_day_name(n) %}
+    {# The year 2001 stared on a Monday #}
+    {{ ('2001-01-' ~ n)|date('l')|trans }}
+{% endmacro %}
+
+{% block app_time_ranges_widget %}
+    {% from _self import week_day_name %}
+
+    <table id="time-ranges" class="table table-striped">
+        <thead class="">
+            <tr><td></td><th>{{ 'Activate'|trans }}</th><th>{{ 'Start time'|trans }}</th><th>{{ 'End time'|trans }}</th></tr>
+        </thead>
+        <tbody>
+            {% for day in 1..7 %}
+                <tr>
+                    <td><label class="control-label" for="time-range-handle-{{ day }}">{{ week_day_name(day)|trans }}</label></td>
+                    <td><input type="checkbox" id="time-range-handle-{{ day }}" /></td>
+                    <td>
+                        {{ form_widget(form['start_time_' ~ day]) }}
+                    </td>
+                    <td>
+                        {{ form_widget(form['end_time_' ~ day]) }}
+                    </td>
+                    <td>
+                        {{ form_errors(form['start_time_' ~ day]) }}
+                        {{ form_errors(form['end_time_' ~ day]) }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {# IMPORTANT: Don't delete these two form rows! #}
+    {{ form_row(form.message) }}
+    {{ form_row(form.default_values) }}
+
+    <script>(function($) {
+            $(function() {
+                var defaultValues = (function() {
+                    var value = $('#' + {{ (id ~ '_default_values')|json_encode|raw }}).val();
+                    return value ? JSON.parse(value) : null;
+                }());
+
+                $('#time-ranges [type="checkbox"]')
+                    .on('change', function() {
+                        var controls = $(this).closest('tr').find('select');
+                        var checked = $(this).prop('checked');
+                        var day = $(this).data('day');
+                        if (checked) {
+                            controls.each(function(index) {
+                                if (!$(this).val()) {
+                                    // Restore selected value or use default.
+                                    var value = $(this).data('last_selected');
+                                    if (!value) {
+                                        if (typeof defaultValues[day] !== 'undefined' && $.isArray(defaultValues[day]) && index < defaultValues[day].length) {
+                                            value = defaultValues[day][index];
+                                        }
+                                    }
+                                    $(this).val(value);
+                                }
+                            });
+                        } else {
+                            // Reset choices, but remember selected value.
+                            controls.each(function(index) {
+                                $(this).data('last_selected', $(this).val());
+                                $(this).val('');
+                            });
+                        }
+                        controls.prop('disabled', !checked)
+                        ;
+                    })
+                    .each(function(index) {
+                        var controls = $(this).closest('tr').find('select');
+                        $(this)
+                            .data('day', index+1)
+                            .prop('checked', $(controls[0]).val() || $(controls[1]).val())
+                            .trigger('change');
+                    })
+                ;
+            });
+        }(jQuery))</script>
+{% endblock %}

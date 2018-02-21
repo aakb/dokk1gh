@@ -10,8 +10,10 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Service\Configuration;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
@@ -21,6 +23,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TimeRangesType extends AbstractType
 {
+    private $configuration;
+
     private static $weekDayNames = [
         1 => 'Monday',
         2 => 'Tuesday',
@@ -30,6 +34,11 @@ class TimeRangesType extends AbstractType
         6 => 'Saturday',
         7 => 'Sunday',
     ];
+
+    public function __construct(Configuration $configuration)
+    {
+        $this->configuration = $configuration;
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -45,19 +54,16 @@ class TimeRangesType extends AbstractType
                 ],
             ]);
 
-        $timeChoices = [];
+        $timeOptions = $this->getTimeOptions();
+        $defaultValues = $this->getDefaultValues();
+        $builder->add('default_values', HiddenType::class, [
+            'data' => json_encode($defaultValues),
+            'mapped' => false,
+        ]);
 
-        for ($hours = 6; $hours <= 22; ++$hours) {
-            for ($minutes = 0; $minutes < 60; $minutes += 30) {
-                $key = sprintf('%02d:%02d', $hours, $minutes);
-                $timeChoices[] = $key;
-            }
-        }
-        array_pop($timeChoices);
-
-        $startTimeChoices = array_combine($timeChoices, $timeChoices);
+        $startTimeChoices = array_combine($timeOptions, $timeOptions);
         array_pop($startTimeChoices);
-        $endTimeChoices = array_combine($timeChoices, $timeChoices);
+        $endTimeChoices = array_combine($timeOptions, $timeOptions);
         array_shift($endTimeChoices);
 
         for ($day = 1; $day <= 7; ++$day) {
@@ -112,8 +118,33 @@ class TimeRangesType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
-        return 'appbundle_time_ranges';
+        return 'app_time_ranges';
+    }
+
+    private function getTimeOptions()
+    {
+        $min = $this->configuration->get('guest_timeRanges_min');
+        $max = $this->configuration->get('guest_timeRanges_max');
+        $step = $this->configuration->get('guest_timeRanges_step');
+        $step = new \DateInterval('PT'.strtoupper($step));
+
+        // Make sure that we don't hit a leap day.
+        $minDate = \DateTime::createFromFormat('Y-m-d H:i', '2001-01-01 '.$min);
+        $maxDate = \DateTime::createFromFormat('Y-m-d H:i', '2001-01-01 '.$max);
+
+        $choices = [];
+        while ($minDate <= $maxDate) {
+            $choices[] = $minDate->format('H:i');
+            $minDate->add($step);
+        }
+
+        return $choices;
+    }
+
+    private function getDefaultValues()
+    {
+        return $this->configuration->get('guest_default_timeRanges');
     }
 }

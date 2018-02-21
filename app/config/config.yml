@@ -129,7 +129,7 @@ fos_user:
     resetting:
         email:
             template: Emails/password_resetting.email.twig
-        token_ttl: 0
+        token_ttl: 86400
 
 fos_rest:
     param_fetcher_listener: true

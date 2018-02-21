@@ -21,6 +21,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -111,11 +112,16 @@ class AppController extends Controller
                 $status['sms_sent'] = true;
             }
         } catch (AbstractException $exception) {
+            return $this->render('app/code/error.html.twig', [
+                'message' => $exception->getMessage(),
+                'guest' => $guest,
+            ]);
             $messages['danger'][] = $exception->getMessage();
         }
-        $this->setGeneratedCodeData([$code->getId(), $status, $messages]);
+        $this->setGeneratedCodeData([$status, $messages]);
 
         return $this->redirectToRoute('app_code_request_result', [
+            'code' => $code ? $code->getId() : null,
             'guest' => $guest->getId(),
             'template' => $template->getId(),
         ]);
@@ -125,9 +131,10 @@ class AppController extends Controller
      * @Route("/request/{template}", name="app_code_request_result")
      * @Method("GET")
      */
-    public function codeRequestResultAction(Guest $guest, Template $template)
+    public function codeRequestResultAction(Request $request, Guest $guest, Template $template)
     {
-        list($codeId, $status, $messages) = $this->getGeneratedCodeData();
+        list($status, $messages) = $this->getGeneratedCodeData();
+        $codeId = $request->get('code');
         $code = null !== $codeId
             ? $this->container->get('doctrine')->getRepository(Code::class)->find($codeId)
             : null;

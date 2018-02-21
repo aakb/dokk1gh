@@ -12,6 +12,7 @@
         <h1>{{ 'Your code has been sent'|trans }}</h1>
         <p class="lead">{{ 'You will recive an SMS with the code in a moment'|trans }}</p>
     </div>
+
     {% for type, messages in messages|default([]) %}
         {% for message in messages %}
             <div class="alert alert-{{ type }}">
@@ -19,25 +20,27 @@
             </div>
         {% endfor %}
     {% endfor %}
-    <div class="card shadow">
-        <div class="card-body">
-            <p class="text-center"><i class="fas fa-check-square fa-3x text-primary"></i></p>
-            {% if status['sms_sent']|default(false) %}
-                <p class="card-text text-center"><b>{{ 'Sms sent to tel. %guest_phone%'|trans({'%guest_phone%': guest.phone}) }}</b></p>
-            {% endif %}
-            {% if code|default(null) %}
+
+    {% if code|default(null) %}
+        <div class="card shadow">
+            <div class="card-body">
+                <p class="text-center"><i class="fas fa-check-square fa-3x text-primary"></i></p>
+                {% if status['sms_sent']|default(false) %}
+                    <p class="card-text text-center"><b>{{ 'SMS sent to phone %guest_phone%'|trans({'%guest_phone%': guest.phone}) }}</b></p>
+                {% endif %}
                 <hr>
                 <dl>
                     <dt>{{ 'Code gives access to'|trans }}</dt>
                     <dd>{{ code.template.name }}</dd>
 
                     <dt>{{ 'Code expires at'|trans }}</dt>
-                    <dd>{{ code.endTime|date(format_datetime) }}</dd>
+                    <dd>{{ code.endTime|date(format_datetime, view_timezone) }}</dd>
                 </dl>
-            {% endif %}
+            </div>
         </div>
-    </div>
-    <p class="mt-3 text-center text-muted">{{ 'It might take up to a few minutes before you recive the code depending on your network operator.'|trans }}</p>
+        <p class="mt-3 text-center text-muted">{{ 'It might take up to a few minutes before you recive the code depending on your network operator.'|trans }}</p>
+    {% endif %}
+
     <div>
         <a class="btn btn-primary btn-lg btn-block" href="{{ path('app_code', {'guest': guest.id}) }}">{{ 'Finish'|trans }}</a>
     </div>

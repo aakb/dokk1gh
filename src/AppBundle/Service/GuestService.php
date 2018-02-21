@@ -25,7 +25,7 @@ class GuestService
     /** @var EntityManagerInterface */
     private $manager;
 
-    /** @var \Twig_Environment */
+    /** @var TwigHelper */
     private $twig;
 
     /** @var Configuration */
@@ -40,7 +40,7 @@ class GuestService
     public function __construct(
         AeosHelper $aeosHelper,
         EntityManagerInterface $manager,
-        \Twig_Environment $twig,
+        TwigHelper $twig,
         Configuration $configuration,
         SmsHelper $smsHelper,
         MailHelper $mailHelper
@@ -51,6 +51,22 @@ class GuestService
         $this->configuration = $configuration;
         $this->smsHelper = $smsHelper;
         $this->mailHelper = $mailHelper;
+    }
+
+    /**
+     * Create a new guest with default values.
+     *
+     * @return Guest
+     */
+    public function createNewGuest()
+    {
+        $guest = new Guest();
+        $guest
+            ->setEnabled(true)
+            ->setStartTime(new \DateTime($this->configuration->get('guest_default_startTime')))
+            ->setEndTime(new \DateTime($this->configuration->get('guest_default_endTime')));
+
+        return $guest;
     }
 
     /**
@@ -97,11 +113,37 @@ class GuestService
             return false;
         }
 
+        $timezone = new \DateTimeZone($this->configuration->get('view_timezone'));
+        $now = new \DateTime('now', $timezone);
+
+        $timeRanges = $guest->getTimeRanges();
+        $day = $now->format('N');
+        if (!isset($timeRanges['start_time_'.$day], $timeRanges['end_time_'.$day])
+            || !preg_match('/^(?<hours>\d{2}):(?<minutes>\d{2})$/', $timeRanges['start_time_'.$day], $startTimeData)
+            || !preg_match('/^(?<hours>\d{2}):(?<minutes>\d{2})$/', $timeRanges['end_time_'.$day], $endTimeData)) {
+            return false;
+        }
+
+        $startTime = clone $now;
+        $startTime->setTime($startTimeData['hours'], $startTimeData['minutes']);
+        $endTime = clone $now;
+        $endTime->setTime($endTimeData['hours'], $endTimeData['minutes']);
+
+        if ($now < $startTime || $endTime < $now) {
+            return false;
+        }
+
         return true;
     }
 
     public function generateCode(Guest $guest, Template $template)
     {
+        if (!$this->canRequestCode($guest)) {
+            throw new GuestException('Guest cannot request code right now', [
+                'guest' => $guest,
+            ]);
+        }
+
         if (!$guest->getTemplates()->contains($template)) {
             throw new InvalidTemplateException('Guest does not have access to template', [
                 'guest' => $guest,
@@ -118,11 +160,10 @@ class GuestService
                 ->setEndTime(new \DateTime($this->configuration->get('guest_code_duration')));
 
             $visitorName = $this->twig
-                ->createTemplate($this->configuration->get('guest_code_name_template'))
-                ->render([
-                             'guest' => $guest,
-                             'template' => $template,
-                         ]);
+                ->renderTemplate($this->configuration->get('guest_code_name_template'), [
+                    'guest' => $guest,
+                    'template' => $template,
+                ]);
 
             $this->aeosHelper->createAeosIdentifier($code, $visitorName);
             $this->manager->persist($code);
