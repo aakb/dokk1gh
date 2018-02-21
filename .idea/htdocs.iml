@@ -56,6 +56,7 @@
           <root url="file://$MODULE_DIR$/vendor/behatch/contexts" />
           <root url="file://$MODULE_DIR$/vendor/composer" />
           <root url="file://$MODULE_DIR$/vendor/container-interop/container-interop" />
+          <root url="file://$MODULE_DIR$/vendor/craue/config-bundle" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/annotations" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/cache" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/collections" />
@@ -69,6 +70,8 @@
           <root url="file://$MODULE_DIR$/vendor/doctrine/lexer" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/migrations" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/orm" />
+          <root url="file://$MODULE_DIR$/vendor/egeloen/ckeditor-bundle" />
+          <root url="file://$MODULE_DIR$/vendor/egeloen/json-builder" />
           <root url="file://$MODULE_DIR$/vendor/egulias/email-validator" />
           <root url="file://$MODULE_DIR$/vendor/exsyst/swagger" />
           <root url="file://$MODULE_DIR$/vendor/fig/link-util" />
@@ -81,6 +84,7 @@
           <root url="file://$MODULE_DIR$/vendor/guzzlehttp/promises" />
           <root url="file://$MODULE_DIR$/vendor/guzzlehttp/psr7" />
           <root url="file://$MODULE_DIR$/vendor/incenteev/composer-parameter-handler" />
+          <root url="file://$MODULE_DIR$/vendor/itk-dev/config-bundle" />
           <root url="file://$MODULE_DIR$/vendor/itk-dev/database-bundle" />
           <root url="file://$MODULE_DIR$/vendor/itk-dev/monolog-db-bundle" />
           <root url="file://$MODULE_DIR$/vendor/javiereguiluz/easyadmin-bundle" />
@@ -150,6 +154,7 @@
           <root url="file://$MODULE_DIR$/vendor/behatch/contexts" />
           <root url="file://$MODULE_DIR$/vendor/composer" />
           <root url="file://$MODULE_DIR$/vendor/container-interop/container-interop" />
+          <root url="file://$MODULE_DIR$/vendor/craue/config-bundle" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/annotations" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/cache" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/collections" />
@@ -163,6 +168,8 @@
           <root url="file://$MODULE_DIR$/vendor/doctrine/lexer" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/migrations" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/orm" />
+          <root url="file://$MODULE_DIR$/vendor/egeloen/ckeditor-bundle" />
+          <root url="file://$MODULE_DIR$/vendor/egeloen/json-builder" />
           <root url="file://$MODULE_DIR$/vendor/egulias/email-validator" />
           <root url="file://$MODULE_DIR$/vendor/exsyst/swagger" />
           <root url="file://$MODULE_DIR$/vendor/fig/link-util" />
@@ -175,6 +182,7 @@
           <root url="file://$MODULE_DIR$/vendor/guzzlehttp/promises" />
           <root url="file://$MODULE_DIR$/vendor/guzzlehttp/psr7" />
           <root url="file://$MODULE_DIR$/vendor/incenteev/composer-parameter-handler" />
+          <root url="file://$MODULE_DIR$/vendor/itk-dev/config-bundle" />
           <root url="file://$MODULE_DIR$/vendor/itk-dev/database-bundle" />
           <root url="file://$MODULE_DIR$/vendor/itk-dev/monolog-db-bundle" />
           <root url="file://$MODULE_DIR$/vendor/javiereguiluz/easyadmin-bundle" />

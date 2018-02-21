@@ -2,7 +2,10 @@ easy_admin:
     site_name: '%site_name%'
 
     design:
-        form_theme: 'easy_admin/form/bootstrap_3_horizontal_layout.html.twig'
+        form_theme:
+            - easy_admin/form/bootstrap_3_horizontal_layout.html.twig
+            - '@ItkDevConfig/easy_admin/form/setting.html.twig'
+
         brand_color: '#003764'
         assets:
             css:
@@ -18,6 +21,9 @@ easy_admin:
               roles: [ROLE_ADMIN]
             - entity: Template
               roles: [ROLE_ADMIN]
+            - entity: Setting
+              label: Settings
+              roles: [ROLE_CONFIG_ADMIN]
 
     formats:
         datetime: '%format_datetime%'
@@ -183,6 +189,7 @@ easy_admin:
                           choices: &role_list
                               ROLE_USER: ROLE_USER
                               ROLE_ADMIN: ROLE_ADMIN
+                              ROLE_CONFIG_ADMIN: ROLE_CONFIG_ADMIN
                     - property: templates
                       type_options:
                           expanded: true
@@ -232,3 +239,35 @@ easy_admin:
                     - property: aeosId
                       type_options:
                           required: false
+
+        Setting:
+            roles: [ROLE_CONFIG_ADMIN]
+            controller: ItkDev\ConfigBundle\Controller\SettingController
+            class: ItkDev\ConfigBundle\Entity\Setting
+            disabled_actions: [new, delete]
+            list:
+                title: Settings
+                fields:
+                    - property: name
+                      template: translate.html.twig
+                    - property: value
+                      label: Value
+                      template: '@ItkDevConfig/easy_admin/Setting/display_value.html.twig'
+
+            edit:
+                fields:
+                    - property: name
+                      label: false
+                      type_options:
+                          disabled: true
+                    - property: value
+                      label: false
+                      type_options:
+                          required: false
+                          label: false
+                    - property: description
+                      label: false
+                      type_options:
+                          disabled: true
+                          # attr:
+                          #     raw: true

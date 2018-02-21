@@ -36,6 +36,7 @@ label.null: '–'
 
 ROLE_USER: Bruger
 ROLE_ADMIN: Administrator
+ROLE_CONFIG_ADMIN: Konfigurationsadministrator
 ROLE_SUPER_ADMIN: Superadministrator
 
 Identifier: Identifier
@@ -136,3 +137,17 @@ You are not allowed to request access right now: Du har ikke adgang lige nu
 Error generating code: Fejl under generering af kode
 Guest cannot request code right now: Du har ikke adgang lige nu
 Guest does not have access to template: Du har ikke adgang til det valgte område
+
+Settings: Indstillinger
+Setting: Indstilling
+Description: Beskrivelse
+Value: Værdi
+
+# Settings
+app_terms_lead: Betingelser – manchet
+app_terms_header: Betingelser – overskrift
+app_terms_content: Betingelser – indhold
+
+app_about_lead: Om app'en – manchet
+app_about_header: Om app'en – overskrift
+app_about_content: Om app'en – indhold
