@@ -35,16 +35,17 @@
         </div>
         <div class="slide fade-in slide-in">
             <div class="header">
-                <h1>{{ 'Accept terms'|trans }}</h1>
-                <p class="lead">{{ 'You need to read and accept the terms before you can start to use create codes.'|trans }}</p>
+                <h1>{{ get_configuration('app_terms_header')|default('Accept terms'|trans) }}</h1>
+                {% if get_configuration('app_terms_lead')|default(null) %}
+                    <p class="lead">{{ get_configuration('app_terms_lead') }}</p>
+                {% endif %}
             </div>
-            {# TODO: Use real text #}
-            <h2>Generelle betingelser</h2>
-            <p>§1 Aliquam mi odio, elementum et suscipit sed, mattis sit amet mi.</p>
-            <p>Curabitur sed interdum urna. Ut scelerisque purus at mauris iaculis aliquet.</p>
-            <p>Ut porta justo vitae ipsum commodo, et elementum arcu tincidunt. </p>
-            <h2>Nulla sagittis et arcu</h2>
-            <p>Ut lacinia viverra eros a accumsan. Nam rutrum id sapien quis pulvinar. Pellentesque convallis, metus suscipit aliquet lacinia, leo dui fringilla tortor, eget elementum risus turpis in nisl. Suspendisse vestibulum elit tellus, eget lacinia lacus tempus ut. Suspendisse varius lacus non mauris lobortis blandit. Praesent cursus dictum sagittis.</p>
+            <div class="card text-center shadow">
+                <div class="card-body">
+                    {% set replacements = {} %}
+                    {{ get_configuration('app_terms_content')|replace(replacements)|raw }}
+                </div>
+            </div>
 
             {% if guest.activatedAt == null %}
                 <form method="post" action="{{ path('app_accept', {guest: guest.id}) }}">

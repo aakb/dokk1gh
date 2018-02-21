@@ -2,7 +2,10 @@ easy_admin:
     site_name: '%site_name%'
 
     design:
-        form_theme: 'easy_admin/form/bootstrap_3_horizontal_layout.html.twig'
+        form_theme:
+            - easy_admin/form/bootstrap_3_horizontal_layout.html.twig
+            - '@ItkDevConfig/easy_admin/form/setting.html.twig'
+
         brand_color: '#003764'
         assets:
             css:
@@ -19,6 +22,7 @@ easy_admin:
             - entity: Template
               roles: [ROLE_ADMIN]
             - entity: Setting
+              label: Settings
               roles: [ROLE_CONFIG_ADMIN]
 
     formats:
@@ -242,12 +246,10 @@ easy_admin:
             class: ItkDev\ConfigBundle\Entity\Setting
             disabled_actions: [new, delete]
             list:
+                title: Settings
                 fields:
-                    # - property: section
                     - property: name
-                    - property: description
-                    # - property: type
-                    # - property: formType
+                      template: translate.html.twig
                     - property: value
                       label: Value
                       template: '@ItkDevConfig/easy_admin/Setting/display_value.html.twig'
@@ -255,8 +257,17 @@ easy_admin:
             edit:
                 fields:
                     - property: name
+                      label: false
                       type_options:
                           disabled: true
+                    - property: value
+                      label: false
+                      type_options:
+                          required: false
+                          label: false
                     - property: description
+                      label: false
                       type_options:
                           disabled: true
+                          # attr:
+                          #     raw: true

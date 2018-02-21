@@ -117,11 +117,5 @@
         },
         "branch-alias": null,
         "ckeditor-clear": "drop"
-    },
-    "repositories": {
-        "itk-dev/config-bundle": {
-            "type": "vcs",
-            "url": "https://github.com/itk-dev/config-bundle"
-        }
     }
 }

@@ -17,3 +17,14 @@ body {
 	background-color: $color-grey-light;
 	color: $color-font-primary;
 }
+
+#edit-setting-form {
+    .setting-name {
+        font-weight: bold;
+    }
+
+    .setting-description {
+        border: solid 1px #aaa;
+        padding: 1em;
+    }
+}

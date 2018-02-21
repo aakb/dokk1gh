@@ -161,9 +161,11 @@ class AppController extends Controller
     /**
      * @Route("/about", name="app_about")
      */
-    public function aboutAction()
+    public function aboutAction(Guest $guest)
     {
-        return $this->render('app/about/index.html.twig');
+        return $this->render('app/about/index.html.twig', [
+            'guest' => $guest,
+        ]);
     }
 
     /**

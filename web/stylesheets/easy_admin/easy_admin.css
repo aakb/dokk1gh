@@ -218,3 +218,10 @@ body {
   padding-bottom: 40px;
   background-color: #F5F5F5;
   color: #4A4A4A; }
+
+#edit-setting-form .setting-name {
+  font-weight: bold; }
+
+#edit-setting-form .setting-description {
+  border: solid 1px #aaa;
+  padding: 1em; }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "77d8d296a3f98028988faf06d008329b",
+    "content-hash": "b5dc83a856c2a1aa3c17f6118dcfa32e",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1838,16 +1838,16 @@
         },
         {
             "name": "itk-dev/config-bundle",
-            "version": "1.0.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/itk-dev/config-bundle.git",
-                "reference": "2d8176c54808f97f46e1ae2397cfa23034fc188f"
+                "reference": "f888e3ceba589709397c0bee315145d885f441cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itk-dev/config-bundle/zipball/2d8176c54808f97f46e1ae2397cfa23034fc188f",
-                "reference": "2d8176c54808f97f46e1ae2397cfa23034fc188f",
+                "url": "https://api.github.com/repos/itk-dev/config-bundle/zipball/f888e3ceba589709397c0bee315145d885f441cf",
+                "reference": "f888e3ceba589709397c0bee315145d885f441cf",
                 "shasum": ""
             },
             "require": {
@@ -1867,28 +1867,7 @@
                     "ItkDev\\ConfigBundle\\": ""
                 }
             },
-            "scripts": {
-                "check-coding-standards/php-cs-fixer": [
-                    "php -n vendor/bin/php-cs-fixer --config=.php_cs.dist fix --dry-run"
-                ],
-                "check-coding-standards/phpcs": [
-                    "vendor/bin/phpcs --standard=phpcs.xml.dist"
-                ],
-                "check-coding-standards": [
-                    "@check-coding-standards/php-cs-fixer",
-                    "@check-coding-standards/phpcs"
-                ],
-                "fix-coding-standards/php-cs-fixer": [
-                    "php -n vendor/bin/php-cs-fixer --config=.php_cs.dist fix"
-                ],
-                "fix-coding-standards/phpcs": [
-                    "vendor/bin/phpcbf --standard=phpcs.xml.dist"
-                ],
-                "fix-coding-standards": [
-                    "@fix-coding-standards/php-cs-fixer",
-                    "@fix-coding-standards/phpcs"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1899,11 +1878,7 @@
                 }
             ],
             "description": "A Symfony bundle to handle app config",
-            "support": {
-                "source": "https://github.com/itk-dev/config-bundle/tree/master",
-                "issues": "https://github.com/itk-dev/config-bundle/issues"
-            },
-            "time": "2018-02-18T20:22:50+00:00"
+            "time": "2018-02-21T14:51:26+00:00"
         },
         {
             "name": "itk-dev/database-bundle",
