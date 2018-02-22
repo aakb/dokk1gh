@@ -100,7 +100,7 @@ class AppController extends Controller
         $status = [];
 
         try {
-            $code = $this->guestService->generateCode($guest, $template);
+            $code = $this->guestService->generateCode($guest, $template, 'Created by app');
             if (null !== $code) {
                 $status['code_generated'] = true;
                 $this->guestService->sendCode($guest, $code);

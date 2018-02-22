@@ -136,7 +136,7 @@ class GuestService
         return true;
     }
 
-    public function generateCode(Guest $guest, Template $template)
+    public function generateCode(Guest $guest, Template $template, $note = null)
     {
         if (!$this->canRequestCode($guest)) {
             throw new GuestException('Guest cannot request code right now', [
@@ -154,6 +154,7 @@ class GuestService
         try {
             $code = new Code();
             $code
+                ->setNote($note)
                 ->setCreatedBy($guest->getCreatedBy())
                 ->setTemplate($template)
                 ->setStartTime(new \DateTime())
