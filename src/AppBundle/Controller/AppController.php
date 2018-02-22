@@ -16,7 +16,6 @@ use AppBundle\Entity\Template;
 use AppBundle\Exception\AbstractException;
 use AppBundle\Service\Configuration;
 use AppBundle\Service\GuestService;
-use AppBundle\Service\SmsHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -36,16 +35,12 @@ class AppController extends Controller
     /** @var GuestService */
     private $guestService;
 
-    /** @var SmsHelper */
-    private $smsHelper;
-
     /** @var Configuration */
     private $configuration;
 
-    public function __construct(GuestService $guestService, SmsHelper $smsHelper, Configuration $configuration)
+    public function __construct(GuestService $guestService, Configuration $configuration)
     {
         $this->guestService = $guestService;
-        $this->smsHelper = $smsHelper;
         $this->configuration = $configuration;
     }
 
@@ -108,7 +103,7 @@ class AppController extends Controller
             $code = $this->guestService->generateCode($guest, $template);
             if (null !== $code) {
                 $status['code_generated'] = true;
-                $this->smsHelper->sendCode($guest, $code);
+                $this->guestService->sendCode($guest, $code);
                 $status['sms_sent'] = true;
             }
         } catch (AbstractException $exception) {
@@ -165,6 +160,9 @@ class AppController extends Controller
     {
         return $this->render('app/about/index.html.twig', [
             'guest' => $guest,
+            'replacements' => [
+                'app://guide_url' => $this->generateUrl('app_guide', ['guest' => $guest->getId()]),
+            ],
         ]);
     }
 

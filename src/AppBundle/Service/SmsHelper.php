@@ -51,6 +51,7 @@ class SmsHelper
             [
                 'guest' => $guest,
                 'app_url' => $appUrl,
+                'guest_name' => $guest->getName(),
             ]
         );
         $this->smsService->send($recipient, $message);
@@ -65,11 +66,19 @@ class SmsHelper
     {
         $recipient = $guest->getPhone();
 
+        $codeValidTimePeriod = $this->twigHelper->renderTemplate(
+            $this->configuration->get('code_valid_time_period'),
+            [
+                'code' => $code,
+            ]
+        );
+
         $message = $this->twigHelper->renderTemplate(
             $this->configuration->get('guest_code_sms_template'),
             [
                 'guest' => $guest,
                 'code' => $code,
+                'code_valid_time_period' => $codeValidTimePeriod,
             ]
         );
         $this->smsService->send($recipient, $message);

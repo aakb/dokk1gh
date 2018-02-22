@@ -174,4 +174,9 @@ class GuestService
             throw new GuestException('Cannot generate code');
         }
     }
+
+    public function sendCode(Guest $guest, Code $code)
+    {
+        $this->smsHelper->sendCode($guest, $code);
+    }
 }

@@ -117,6 +117,13 @@ parameters:
         Venlig hilsen
         {{ site_name }}
 
+    code_valid_time_period: |-
+        {% if (code.startTime | date('Y-m-d')) == (code.endTime | date('Y-m-d')) -%}
+        {{ code.startTime | date(format_date, view_timezone) }} {{ code.startTime | date(format_time, view_timezone) }}–{{ code.endTime | date(format_time, view_timezone) }}
+        {%- else -%}
+        {{ code.startTime | date(format_datetime, view_timezone) }}–{{ code.endTime | date(format_datetime, view_timezone) }}
+        {%- endif -%}
+
     # UTC
     code.config:
       startTime:

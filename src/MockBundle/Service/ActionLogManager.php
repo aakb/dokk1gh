@@ -30,8 +30,13 @@ class ActionLogManager
         $this->manager->flush();
     }
 
-    public function findAll($className)
+    public function findAll($className, array $criteria = [], array $orderBy = ['createdAt' => Criteria::DESC])
     {
-        return $this->manager->getRepository($className)->findBy([], ['createdAt' => Criteria::DESC]);
+        return $this->manager->getRepository($className)->findBy($criteria, $orderBy);
+    }
+
+    public function findOne($className, array $criteria = [], array $orderBy = ['createdAt' => Criteria::DESC])
+    {
+        return $this->manager->getRepository($className)->findOneBy($criteria, $orderBy);
     }
 }
