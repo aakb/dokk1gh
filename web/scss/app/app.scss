@@ -12,6 +12,10 @@
 @import '_guest-info';
 @import '_onboard-guide';
 
+// Hack! Pull in modal from easy admin styling.
+$color-primary: #003764;
+@import '../easy_admin/_partials/_modal';
+
 body {
     background: $gray-200;
     margin-bottom: 78px; // To account for navbar fixed to bottom of page.
