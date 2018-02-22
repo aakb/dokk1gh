@@ -64,6 +64,7 @@ twig:
         sender:
             email: '%mailer_email%'
             name: '%mailer_name%'
+        version: '%version%'
         configuration: '@AppBundle\Service\Configuration'
 
 # Doctrine Configuration
