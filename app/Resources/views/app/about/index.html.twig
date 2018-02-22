@@ -9,10 +9,7 @@
     </div>
     <div class="row about">
         <div class="col-sm-8 offset-sm-2 mb-3">
-            {% set replacements = {
-                'app://guide_url': path('app_guide', {guest: guest.id}),
-                } %}
-            {{ get_configuration('app_about_content')|replace(replacements)|raw }}
+            {{ get_configuration('app_about_content')|replace(replacements|default({}))|raw }}
         </div>
     </div>
 {% endblock %}

@@ -52,6 +52,18 @@ class SmsGatewayController extends Controller
     }
 
     /**
+     * @Route("/log/latest", name="sms_log_latest")
+     */
+    public function logLastestAction()
+    {
+        $items = [$this->manager->findOne(SmsGatewayActionLogEntry::class)];
+
+        return $this->render('@Mock/smsgateway/index.html.twig', [
+            'items' => $items,
+        ]);
+    }
+
+    /**
      * @Route("/send")
      * @Method({"GET", "POST"})
      */
