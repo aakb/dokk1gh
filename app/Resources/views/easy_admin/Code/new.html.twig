@@ -31,7 +31,7 @@
      event.preventDefault();
 
      setTimeout(function () {
-       $('form').submit();
+       $(this).closest('form').submit();
      }, 500);
    });
 });</script>
