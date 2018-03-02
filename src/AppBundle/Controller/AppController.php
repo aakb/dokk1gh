@@ -208,6 +208,14 @@ class AppController extends Controller
     }
 
     /**
+     * @Route("/no-access", name="app_no_access")
+     */
+    public function noAccessAction()
+    {
+        return $this->render('app/no-access.html.twig');
+    }
+
+    /**
      * @Route("/serviceworker.js", name="app_serviceworker")
      */
     public function serviceworkerAction()

@@ -142,6 +142,11 @@ Settings: Indstillinger
 Setting: Indstilling
 Description: Beskrivelse
 Value: Værdi
+Your guest access is not valid: Din gæsteadgang er ikke aktiv
+No access: Ingen adgang
+Your app is not active: Din app er ikke aktiveret
+If you think this is an error please contact you guest access administrator at Dokk1 to have your guest access app enabled: Hvis du mener det er en fejl så kontakt venligst din gæste adgangs administrator på Dokk1 for at få din app aktiveret.
+
 
 # Settings
 app_terms_lead: Betingelser – manchet

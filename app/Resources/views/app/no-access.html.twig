@@ -1,0 +1,13 @@
+{% extends 'app/base.html.twig' %}
+{% set on_app_page = false %}
+
+{% block content %}
+    <div class="header">
+        <h1>{{ 'No access'|trans }}</h1>
+        <p class="lead">{{ 'Your app is not active'|trans }}</p>
+    </div>
+    <div class="text-center">
+        <i class="fas fa-ban fa-5x"></i>
+        <p class="mt-4">{{ 'If you think this is an error please contact you guest access administrator at Dokk1 to have your guest access app enabled'|trans }}</p>
+    </div>
+{% endblock %}
